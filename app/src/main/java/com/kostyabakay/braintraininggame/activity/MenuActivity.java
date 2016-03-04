@@ -1,5 +1,6 @@
 package com.kostyabakay.braintraininggame.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +21,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         initView();
     }
 
+    /**
+     * Initialization view elements on the screen.
+     */
     private void initView() {
         Button newGameBtn = (Button) findViewById(R.id.menu_play_button);
         Button rulesBtn = (Button) findViewById(R.id.menu_rules_button);
@@ -38,6 +42,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.menu_play_button:
+                Intent intent = new Intent(MenuActivity.this, GameActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.menu_rules_button:
