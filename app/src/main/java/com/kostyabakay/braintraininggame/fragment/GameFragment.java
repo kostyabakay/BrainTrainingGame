@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.kostyabakay.braintraininggame.AppData;
 import com.kostyabakay.braintraininggame.R;
 import com.kostyabakay.braintraininggame.model.EasyExpression;
+import com.kostyabakay.braintraininggame.model.HardExpression;
+import com.kostyabakay.braintraininggame.model.MediumExpression;
 
 /**
  * Created by Kostya on 04.03.2016.
@@ -23,6 +25,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private TextView evaluationTextView, expressionTextView, answerTextView;
     private Button checkBtn;
     private EasyExpression easyExpression;
+    private MediumExpression mediumExpression;
+    private HardExpression hardExpression;
     private int expressionAnswer, userAnswer;
     private boolean isNumberNegative = false;
     private boolean isAnswerEmpty = true;
@@ -122,15 +126,29 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * Creates expression depending by difficulty level.
      */
     private void createExpression() {
-        easyExpression = new EasyExpression();
-        expressionAnswer = easyExpression.getCalculationResult();
+        if (AppData.easyLevel) {
+            easyExpression = new EasyExpression();
+            expressionAnswer = easyExpression.getCalculationResult();
+        } else if (AppData.mediumLevel) {
+            mediumExpression = new MediumExpression();
+            expressionAnswer = mediumExpression.getCalculationResult();
+        } else if (AppData.hardLevel) {
+            hardExpression = new HardExpression();
+            expressionAnswer = hardExpression.getCalculationResult();
+        }
     }
 
     /**
      * Shows random generated expression to user.
      */
     private void showExpression() {
-        expressionTextView.setText("" + easyExpression.getFirstTerm() + " " + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
+        if (AppData.easyLevel) {
+            expressionTextView.setText("" + easyExpression.getFirstTerm() + " " + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
+        } else if (AppData.mediumLevel) {
+            expressionTextView.setText("" + mediumExpression.getFirstTerm() + " " + mediumExpression.getFirstOperator() + " " + mediumExpression.getSecondTerm() + " " + mediumExpression.getSecondOperator() + " " + mediumExpression.getThirdTerm());
+        } else if (AppData.hardLevel) {
+            expressionTextView.setText("" + hardExpression.getFirstTerm() + " " + hardExpression.getFirstOperator() + " " + hardExpression.getSecondTerm() + " " + hardExpression.getSecondOperator() + " " + hardExpression.getThirdTerm() + " " + hardExpression.getThirdOperator() + " " + hardExpression.getFourthTerm());
+        }
     }
 
     /**

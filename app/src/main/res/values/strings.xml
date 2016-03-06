@@ -20,6 +20,11 @@
     <string name="game_button_sign">Change sign</string>
     <string name="game_button_check">Check</string>
 
+    <string name="settings_difficulty_level">Difficulty level</string>
+    <string name="settings_easy_level">Easy</string>
+    <string name="settings_medium_level">Medium</string>
+    <string name="settings_hard_level">Hard</string>
+
     <string name="correct_answer">Correct!</string>
     <string name="wrong_answer">Wrong!</string>
     <string name="score">Score</string>
