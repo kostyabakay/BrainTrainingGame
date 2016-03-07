@@ -15,6 +15,10 @@
         android:id="@+id/answer_text_view"
         style="@style/GameTextView" />
 
+    <TextView
+        android:id="@+id/timer_text_view"
+        style="@style/GameTextView" />
+
     <TableLayout
         android:id="@+id/buttons_table_layout"
         android:layout_width="match_parent"

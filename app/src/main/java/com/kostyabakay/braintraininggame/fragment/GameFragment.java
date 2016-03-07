@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,12 @@ import com.kostyabakay.braintraininggame.model.MediumExpression;
  */
 public class GameFragment extends Fragment implements View.OnClickListener {
     private final int[] USER_DIGIT_CLICK = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    private TextView evaluationTextView, expressionTextView, answerTextView;
+    private TextView evaluationTextView, expressionTextView, answerTextView, timerTextView;
     private Button checkBtn;
     private EasyExpression easyExpression;
     private MediumExpression mediumExpression;
     private HardExpression hardExpression;
+    private CountDownTimer timer;
     private int expressionAnswer, userAnswer;
     private boolean isNumberNegative = false;
     private boolean isAnswerEmpty = true;
@@ -51,6 +53,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         evaluationTextView = (TextView) getActivity().findViewById(R.id.evaluation_text_view);
         expressionTextView = (TextView) getActivity().findViewById(R.id.expression_text_view);
         answerTextView = (TextView) getActivity().findViewById(R.id.answer_text_view);
+        timerTextView = (TextView) getActivity().findViewById(R.id.timer_text_view);
 
         Button oneBtn = (Button) getActivity().findViewById(R.id.button_1);
         Button twoBtn = (Button) getActivity().findViewById(R.id.button_2);
@@ -97,6 +100,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             checkGamesCount();
             clearData();
             createExpression();
+            startTimer();
             showExpression();
         }
     }
@@ -175,6 +179,24 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
+     * Starts timer per question.
+     */
+    private void startTimer() {
+        timer = new CountDownTimer(11000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timerTextView.setText(Long.toString(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                timerTextView.setText("0");
+                checkAnswer(userAnswer);
+                checkBtn.setText(R.string.game_button_next);
+            }
+        }.start();
+    }
+
+    /**
      * Changes sign of the number. Negative number becomes positive, positive number becomes negative.
      *
      * @param number
@@ -190,6 +212,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * @param answer
      */
     private void checkAnswer(int answer) {
+        timer.cancel();
         if (expressionAnswer == answer) {
             evaluationTextView.setText(R.string.correct_answer);
             evaluationTextView.setTextColor(Color.GREEN);
@@ -296,7 +319,12 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.button_check:
-                checkAnswer(userAnswer);
+                if (checkBtn.getText().equals(getString(R.string.game_button_next))) {
+                    checkBtn.setText(R.string.game_button_check);
+                    evaluationTextView.setText("");
+                } else {
+                    checkAnswer(userAnswer);
+                }
 
                 if (checkBtn.getText().equals(getString(R.string.score))) {
                     showGameScoreFragment();
@@ -305,7 +333,6 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 }
 
                 nextExpression();
-
                 break;
         }
     }

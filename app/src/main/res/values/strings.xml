@@ -19,6 +19,7 @@
     <string name="game_button_delete">Delete</string>
     <string name="game_button_sign">Change sign</string>
     <string name="game_button_check">Check</string>
+    <string name="game_button_next">Next</string>
 
     <string name="settings_difficulty_level">Difficulty level</string>
     <string name="settings_easy_level">Easy</string>
