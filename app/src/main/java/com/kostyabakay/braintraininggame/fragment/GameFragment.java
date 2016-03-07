@@ -30,6 +30,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private HardExpression hardExpression;
     private CountDownTimer timer;
     private int expressionAnswer, userAnswer;
+    private long answerTime;
     private boolean isNumberNegative = false;
     private boolean isAnswerEmpty = true;
     private boolean isGameFinished = false;
@@ -89,6 +90,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      */
     private void startGame() {
         AppData.gamesCount = 0;
+        AppData.correctAnswers = 0;
+        AppData.score = 0;
         nextExpression();
     }
 
@@ -121,9 +124,10 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      */
     private void clearData() {
         expressionTextView.setText("");
-        answerTextView.setText("");
-        isAnswerEmpty = true;
         userAnswer = 0;
+        answerTextView.setText(Integer.toString(userAnswer));
+        answerTime = 0;
+        isAnswerEmpty = true;
     }
 
     /**
@@ -185,7 +189,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         timer = new CountDownTimer(11000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                timerTextView.setText(Long.toString(millisUntilFinished / 1000));
+                answerTime = millisUntilFinished / 1000;
+                timerTextView.setText(Long.toString(answerTime));
             }
 
             public void onFinish() {
@@ -216,9 +221,25 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         if (expressionAnswer == answer) {
             evaluationTextView.setText(R.string.correct_answer);
             evaluationTextView.setTextColor(Color.GREEN);
+            if (!checkBtn.getText().equals(getString(R.string.score))) {
+                AppData.correctAnswers++;
+                calculateScore();
+            }
         } else {
             evaluationTextView.setText(R.string.wrong_answer);
             evaluationTextView.setTextColor(Color.RED);
+        }
+    }
+
+    /**
+     * Calculates score of every answer and adds them.
+     */
+    private void calculateScore() {
+        if (answerTime == 10) {
+            AppData.score = AppData.score + 100;
+        } else if (answerTime > 0 && answerTime < 10) {
+            long k = 100 / (10 - answerTime);
+            AppData.score = AppData.score + k;
         }
     }
 

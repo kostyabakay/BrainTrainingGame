@@ -6,6 +6,18 @@
 
     <TextView
         style="@style/ScoreTextView"
+        android:text="@string/correct_answers" />
+
+    <TextView
+        android:id="@+id/correct_answers_text_view"
+        style="@style/ScoreTextView" />
+
+    <TextView
+        style="@style/ScoreTextView"
         android:text="@string/score" />
+
+    <TextView
+        android:id="@+id/score_text_view"
+        style="@style/ScoreTextView" />
 
 </LinearLayout>

@@ -28,5 +28,6 @@
 
     <string name="correct_answer">Correct!</string>
     <string name="wrong_answer">Wrong!</string>
+    <string name="correct_answers">Correct answers</string>
     <string name="score">Score</string>
 </resources>
