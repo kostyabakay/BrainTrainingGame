@@ -52,6 +52,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.menu_author_button:
+                Intent authorIntent = new Intent(MenuActivity.this, AuthorActivity.class);
+                startActivity(authorIntent);
                 break;
 
             case R.id.menu_settings_button:
