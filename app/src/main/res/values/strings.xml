@@ -29,6 +29,8 @@
     <string name="correct_answer">Correct!</string>
     <string name="wrong_answer">Wrong!</string>
     <string name="correct_answers">Correct answers</string>
+    <string name="game_finished">Game is finished</string>
+    <string name="click_score">Click score</string>
     <string name="score">Score</string>
 
     <string name="rules">Rules</string>

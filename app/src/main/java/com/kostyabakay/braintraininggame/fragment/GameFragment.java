@@ -102,9 +102,13 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         if (!isGameFinished) {
             checkGamesCount();
             clearData();
-            createExpression();
-            startTimer();
-            showExpression();
+            if (!isGameFinished) {
+                createExpression();
+                startTimer();
+                showExpression();
+            } else {
+                printHint();
+            }
         }
     }
 
@@ -128,6 +132,15 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         answerTextView.setText(Integer.toString(userAnswer));
         answerTime = 0;
         isAnswerEmpty = true;
+    }
+
+    /**
+     * If game was finished prints to user hint how to open score of the game.
+     */
+    private void printHint() {
+        answerTextView.setText(R.string.game_finished);
+        timerTextView.setText(R.string.click_score);
+        checkBtn.setText(R.string.score);
     }
 
     /**
@@ -340,21 +353,19 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.button_check:
-                if (checkBtn.getText().equals(getString(R.string.game_button_next))) {
-                    checkBtn.setText(R.string.game_button_check);
-                    evaluationTextView.setText("");
-                } else {
-                    checkAnswer(userAnswer);
-                }
-
-                if (checkBtn.getText().equals(getString(R.string.score))) {
+                if (isGameFinished) {
                     showGameScoreFragment();
-                } else if (isGameFinished && !checkBtn.getText().equals(getString(R.string.score))) {
-                    checkBtn.setText(R.string.score);
-                }
+                } else {
+                    if (checkBtn.getText().equals(getString(R.string.game_button_next))) {
+                        checkBtn.setText(R.string.game_button_check);
+                        evaluationTextView.setText("");
+                    } else {
+                        checkAnswer(userAnswer);
+                    }
 
-                nextExpression();
-                break;
+                    nextExpression();
+                    break;
+                }
         }
     }
 }
