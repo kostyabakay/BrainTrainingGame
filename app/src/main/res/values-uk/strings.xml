@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Brain Training Game</string>
+    <string name="menu_play">Грати</string>
+    <string name="menu_rules">Правила</string>
+    <string name="menu_author">Автор</string>
+    <string name="menu_settings">Налаштування</string>
+    <string name="menu_exit">Вийти</string>
+
+    <string name="game_button_zero">0</string>
+    <string name="game_button_one">1</string>
+    <string name="game_button_two">2</string>
+    <string name="game_button_three">3</string>
+    <string name="game_button_four">4</string>
+    <string name="game_button_five">5</string>
+    <string name="game_button_six">6</string>
+    <string name="game_button_seven">7</string>
+    <string name="game_button_eight">8</string>
+    <string name="game_button_nine">9</string>
+    <string name="game_button_delete">Видалити</string>
+    <string name="game_button_sign">-</string>
+    <string name="game_button_check">Перевірити</string>
+    <string name="game_button_next">Далі</string>
+
+    <string name="settings_difficulty_level">Рівень складності</string>
+    <string name="settings_easy_level">Легкий</string>
+    <string name="settings_medium_level">Середній</string>
+    <string name="settings_hard_level">Важкий</string>
+
+    <string name="correct_answer">Правильно!</string>
+    <string name="wrong_answer">Помилка!</string>
+    <string name="correct_answers">Правильні відповіді</string>
+    <string name="game_finished">Гра закінчена</string>
+    <string name="click_score">Натисни кнопку рахунок</string>
+    <string name="score">Рахунок</string>
+
+    <string name="rules">Правила</string>
+    <string name="rules_text">Це проста гра для розвитку мозку, ідея якої полягає в розв\'язанні
+        простих арифметичних выразів за обмежений час. Є три рівня складності на вибір:
+        легкий, середній і важкий. При виборі одного з них виставляється кількість цифр і операцій
+        для арифметичного виразу, яке Вам потрібно розв\'язати. На легкому рівні складності вираз
+        буде складатись з двох цифр і одної операції, на середньому рівні складності вже буде
+        складатися з трьох цифр і двох операцій, а на складному рівні вираз буде складатись з
+        чотирьох цифр і трьох операцій. В грі будуть показуватись випадкові арифметичні вирази і
+        вони будуть залежати від обраного рівня складності. Вираз може містити такі операції як
+        додавання, віднімання, множення та ділення. Одна гра складається з десяти арифметичних
+        виразів. В кінці кожної гри буде показаний ігровий рахунок, який складається з суми балів
+        за кожну відповідь. Кількість балів буде залежати від швидкості Вашої відповіді на
+        питання.</string>
+
+    <string name="author_text">Привіт! Мене звати Костя. Я створив цей додаток в якості фінального
+        проекту для Android Study Jams 2016, який був організований Udacity та Google Developer
+        Group Lviv. Ви можете знайти більше інформації про мене за цими посиланнями.</string>
+</resources>

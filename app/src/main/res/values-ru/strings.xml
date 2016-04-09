@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Brain Training Game</string>
+    <string name="menu_play">Играть</string>
+    <string name="menu_rules">Правила</string>
+    <string name="menu_author">Автор</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_exit">Выйти</string>
+
+    <string name="game_button_zero">0</string>
+    <string name="game_button_one">1</string>
+    <string name="game_button_two">2</string>
+    <string name="game_button_three">3</string>
+    <string name="game_button_four">4</string>
+    <string name="game_button_five">5</string>
+    <string name="game_button_six">6</string>
+    <string name="game_button_seven">7</string>
+    <string name="game_button_eight">8</string>
+    <string name="game_button_nine">9</string>
+    <string name="game_button_delete">Удалить</string>
+    <string name="game_button_sign">-</string>
+    <string name="game_button_check">Проверить</string>
+    <string name="game_button_next">Дальше</string>
+
+    <string name="settings_difficulty_level">Уровень сложности</string>
+    <string name="settings_easy_level">Легкий</string>
+    <string name="settings_medium_level">Средний</string>
+    <string name="settings_hard_level">Сложный</string>
+
+    <string name="correct_answer">Правильно!</string>
+    <string name="wrong_answer">Ошибка!</string>
+    <string name="correct_answers">Правильные ответы</string>
+    <string name="game_finished">Игра закончена</string>
+    <string name="click_score">Нажми кнопку счёт</string>
+    <string name="score">Счёт</string>
+
+    <string name="rules">Правила</string>
+    <string name="rules_text">Это простая игра для развития мозга, суть которой состоит в решении
+        простых арифметических выражений за ограниченное время. Есть три уровня сложности на выбор:
+        легкий, средний и сложный. При выборе одного из них выставляется количество цифр и операций
+        для арифметического выражения, которое Вам надо решить. На легком уровне выражение будет
+        состоять из двух цифр и одной операции, на среднем уровне уже будет состоять из трёх цифр и
+        двух операций, а на сложном уровне выражение будет состоять из четырех цифр и трёх операций.
+        В игре будут показываться случайные арифметические выражения и они будут зависеть от
+        выбранного уровня сложности. Выражение может содержать такие операции как сложение,
+        вычитание, умножение и деление. Одна игра состоит из десяти арифметических выражений. В конце
+        каждой игры будет показан игровой счёт, который состоит из суммы очков за каждый ответ.
+        Количество очков будет зависеть от скорости Вашего ответа на вопрос.</string>
+
+    <string name="author_text">Привет! Меня зовут Костя. Я создал это приложение в качестве
+        финального проекта для Android Study Jams 2016, который был организован Udacity и
+        Google Developer Group Lviv. Вы можете найти больше информации обо мне по этим ссылкам.</string>
+</resources>

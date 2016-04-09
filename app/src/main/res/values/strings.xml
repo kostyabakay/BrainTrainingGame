@@ -17,7 +17,7 @@
     <string name="game_button_eight">8</string>
     <string name="game_button_nine">9</string>
     <string name="game_button_delete">Delete</string>
-    <string name="game_button_sign">Change sign</string>
+    <string name="game_button_sign">-</string>
     <string name="game_button_check">Check</string>
     <string name="game_button_next">Next</string>
 
@@ -51,6 +51,6 @@
         take into account how fast the user answered the question.</string>
 
     <string name="author_text">Hello! My name Kostya. I created this application as final project
-        for Study Jams 2016 course organized by Udacity and Google Developer Group Lviv. You can
-            find more information about me on these links.</string>
+        for Android Study Jams 2016 course organized by Udacity and Google Developer Group Lviv. You
+        can find more information about me on these links.</string>
 </resources>
