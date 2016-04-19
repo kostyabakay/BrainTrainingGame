@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/menu_play"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_font_short" />
 
         <Button
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/menu_rules"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_font_short" />
 
         <Button
@@ -33,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/menu_author"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_font_short" />
 
         <Button
@@ -41,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/menu_settings"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_font_short" />
 
         <Button
@@ -49,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/menu_exit"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_font_short" />
 
     </LinearLayout>

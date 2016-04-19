@@ -103,6 +103,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/game_button_check" />
+        android:text="@string/game_button_check"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_font_medium"
+        android:textStyle="bold" />
 
 </TableLayout>
