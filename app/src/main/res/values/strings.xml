@@ -32,7 +32,11 @@
     <string name="pref_difficulty_key" translatable="false">difficulty</string>
 
     <!-- Default difficulty preference -->
-    <string name="pref_difficulty_default">2</string>
+    <string name="pref_difficulty_default" translatable="false">2</string>
+
+    <string name="pref_difficulty_1" translatable="false">1</string>
+    <string name="pref_difficulty_2" translatable="false">2</string>
+    <string name="pref_difficulty_3" translatable="false">3</string>
 
     <string name="correct_answer">Correct!</string>
     <string name="wrong_answer">Wrong!</string>
@@ -58,7 +62,7 @@
         displayed with a score which the sum of the points scored in each question. The score will
         take into account how fast the user answered the question.</string>
 
-    <string name="author_text">Hello! My name Kostya. I created this application as final project
+    <string name="author_text">Hello! My name is Kostya. I created this application as final project
         for Android Study Jams 2016 course organized by Udacity and Google Developer Group Lviv. You
         can find more information about me on these links.</string>
 </resources>
