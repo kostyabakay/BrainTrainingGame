@@ -8,7 +8,4 @@ public class AppData {
     public static int gamesCount;
     public static int correctAnswers;
     public static long score;
-    public static boolean easyLevel = false;
-    public static boolean mediumLevel = true;
-    public static boolean hardLevel = false;
 }

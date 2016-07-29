@@ -2,9 +2,11 @@ package com.kostyabakay.braintraininggame.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,9 @@ import com.kostyabakay.braintraininggame.model.MediumExpression;
  */
 public class GameFragment extends Fragment implements View.OnClickListener {
     private final int[] USER_DIGIT_CLICK = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private final String DIFFICULTY_EASY = "1";
+    private final String DIFFICULTY_MEDIUM = "2";
+    private final String DIFFICULTY_HARD = "3";
     private TextView evaluationTextView, expressionTextView, answerTextView, timerTextView;
     private Button checkBtn;
     private EasyExpression easyExpression;
@@ -147,15 +152,23 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * Creates expression depending by difficulty level.
      */
     private void createExpression() {
-        if (AppData.easyLevel) {
-            easyExpression = new EasyExpression();
-            expressionAnswer = easyExpression.getCalculationResult();
-        } else if (AppData.mediumLevel) {
-            mediumExpression = new MediumExpression();
-            expressionAnswer = mediumExpression.getCalculationResult();
-        } else if (AppData.hardLevel) {
-            hardExpression = new HardExpression();
-            expressionAnswer = hardExpression.getCalculationResult();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String difficulty = preferences.getString(getString(R.string.pref_difficulty_key),
+                getString(R.string.pref_difficulty_default));
+
+        switch (difficulty) {
+            case DIFFICULTY_EASY:
+                easyExpression = new EasyExpression();
+                expressionAnswer = easyExpression.getCalculationResult();
+                break;
+            case DIFFICULTY_MEDIUM:
+                mediumExpression = new MediumExpression();
+                expressionAnswer = mediumExpression.getCalculationResult();
+                break;
+            case DIFFICULTY_HARD:
+                hardExpression = new HardExpression();
+                expressionAnswer = hardExpression.getCalculationResult();
+                break;
         }
     }
 
@@ -163,12 +176,29 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * Shows random generated expression to user.
      */
     private void showExpression() {
-        if (AppData.easyLevel) {
-            expressionTextView.setText("" + easyExpression.getFirstTerm() + " " + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
-        } else if (AppData.mediumLevel) {
-            expressionTextView.setText("" + mediumExpression.getFirstTerm() + " " + mediumExpression.getFirstOperator() + " " + mediumExpression.getSecondTerm() + " " + mediumExpression.getSecondOperator() + " " + mediumExpression.getThirdTerm());
-        } else if (AppData.hardLevel) {
-            expressionTextView.setText("" + hardExpression.getFirstTerm() + " " + hardExpression.getFirstOperator() + " " + hardExpression.getSecondTerm() + " " + hardExpression.getSecondOperator() + " " + hardExpression.getThirdTerm() + " " + hardExpression.getThirdOperator() + " " + hardExpression.getFourthTerm());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String difficulty = preferences.getString(getString(R.string.pref_difficulty_key),
+                getString(R.string.pref_difficulty_default));
+
+        switch (difficulty) {
+            case DIFFICULTY_EASY:
+                expressionTextView.setText("" + easyExpression.getFirstTerm() + " "
+                        + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
+                break;
+            case DIFFICULTY_MEDIUM:
+                expressionTextView.setText("" + mediumExpression.getFirstTerm() + " "
+                        + mediumExpression.getFirstOperator() + " "
+                        + mediumExpression.getSecondTerm() + " "
+                        + mediumExpression.getSecondOperator() + " "
+                        + mediumExpression.getThirdTerm());
+                break;
+            case DIFFICULTY_HARD:
+                expressionTextView.setText("" + hardExpression.getFirstTerm() + " "
+                        + hardExpression.getFirstOperator() + " "
+                        + hardExpression.getSecondTerm() + " " + hardExpression.getSecondOperator()
+                        + " " + hardExpression.getThirdTerm() + " "
+                        + hardExpression.getThirdOperator() + " " + hardExpression.getFourthTerm());
+                break;
         }
     }
 

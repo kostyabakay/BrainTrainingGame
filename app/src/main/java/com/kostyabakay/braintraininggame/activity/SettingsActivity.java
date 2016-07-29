@@ -1,78 +1,62 @@
 package com.kostyabakay.braintraininggame.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.RadioButton;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 
-import com.kostyabakay.braintraininggame.AppData;
 import com.kostyabakay.braintraininggame.R;
 
 /**
  * Created by Kostya on 06.03.2016.
  * This class represents Activity for settings of the game.
  */
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
-    private RadioButton easyLevelRadioButton, mediumLevelRadioButton, hardLevelRadioButton;
+public class SettingsActivity extends PreferenceActivity
+        implements Preference.OnPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-        initView();
+        // Add 'general' preferences, defined in the XML file
+        addPreferencesFromResource(R.xml.pref_general);
+
+        // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
+        // updated when the preference changes.
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_difficulty_key)));
     }
 
     /**
-     * Initialization view elements on the screen.
+     * Attaches a listener so the summary is always updated with the preference value.
+     * Also fires the listener once, to initialize the summary (so it shows up before the value
+     * is changed.)
      */
-    private void initView() {
-        easyLevelRadioButton = (RadioButton) findViewById(R.id.easy_level_radio_button);
-        mediumLevelRadioButton = (RadioButton) findViewById(R.id.medium_level_radio_button);
-        hardLevelRadioButton = (RadioButton) findViewById(R.id.hard_level_radio_button);
+    private void bindPreferenceSummaryToValue(Preference preference) {
+        // Set the listener to watch for value changes.
+        preference.setOnPreferenceChangeListener(this);
 
-        easyLevelRadioButton.setOnClickListener(this);
-        mediumLevelRadioButton.setOnClickListener(this);
-        hardLevelRadioButton.setOnClickListener(this);
-
-        checkDifficultyLevel();
-    }
-
-    /**
-     * Checks actual difficulty level from AppData class and sets checked corresponding radio button.
-     */
-    private void checkDifficultyLevel() {
-        if (AppData.easyLevel && !AppData.mediumLevel && !AppData.hardLevel) {
-            easyLevelRadioButton.setChecked(true);
-        } else if (!AppData.easyLevel && AppData.mediumLevel && !AppData.hardLevel) {
-            mediumLevelRadioButton.setChecked(true);
-        } else if (!AppData.easyLevel && !AppData.mediumLevel && AppData.hardLevel) {
-            hardLevelRadioButton.setChecked(true);
-        }
+        // Trigger the listener immediately with the preference's current value.
+        onPreferenceChange(preference, PreferenceManager
+                .getDefaultSharedPreferences(preference.getContext())
+                .getString(preference.getKey(), ""));
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.easy_level_radio_button:
-                easyLevelRadioButton.setChecked(true);
-                AppData.easyLevel = true;
-                AppData.mediumLevel = false;
-                AppData.hardLevel = false;
-                break;
+    public boolean onPreferenceChange(Preference preference, Object value) {
+        String stringValue = value.toString();
 
-            case R.id.medium_level_radio_button:
-                mediumLevelRadioButton.setChecked(true);
-                AppData.easyLevel = false;
-                AppData.mediumLevel = true;
-                AppData.hardLevel = false;
-                break;
-
-            case R.id.hard_level_radio_button:
-                hardLevelRadioButton.setChecked(true);
-                AppData.easyLevel = false;
-                AppData.mediumLevel = false;
-                AppData.hardLevel = true;
-                break;
+        if (preference instanceof ListPreference) {
+            // For list preferences, look up the correct display value in
+            // the preference's 'entries' list (since they have separate labels/values).
+            ListPreference listPreference = (ListPreference) preference;
+            int prefIndex = listPreference.findIndexOfValue(stringValue);
+            if (prefIndex >= 0) {
+                preference.setSummary(listPreference.getEntries()[prefIndex]);
+            }
+        } else {
+            // For other preferences, set the summary to the value's simple string representation.
+            preference.setSummary(stringValue);
         }
+        return true;
     }
 }
