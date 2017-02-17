@@ -371,8 +371,10 @@ public class GameFragment extends Fragment implements View.OnClickListener {
 
             case R.id.button_delete:
                 evaluationTextView.setText("");
-                answerTextView.setText("");
+                answerTextView.setText("0");
                 userAnswer = 0;
+                isAnswerEmpty = true;
+                isNumberNegative = false;
                 break;
 
             case R.id.button_sign:
