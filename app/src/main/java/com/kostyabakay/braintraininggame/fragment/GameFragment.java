@@ -214,14 +214,32 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         if (isAnswerEmpty) {
             answerTextView.setText("");
             userAnswer = clickId;
-            answerTextView.setText(Integer.toString(clickId));
+            if (isNumberNegative) {
+                if (!answerTextView.getText().toString().contains("-")) {
+                    answerTextView.setText("-" + Integer.toString(clickId));
+                } else {
+                    answerTextView.setText(Integer.toString(clickId));
+                }
+                if (userAnswer > 0) userAnswer = userAnswer * (-1);
+            } else {
+                answerTextView.setText(Integer.toString(clickId));
+            }
             isAnswerEmpty = false;
         } else {
             String userAnswerStr = Integer.toString(userAnswer);
             String userClickStr = Integer.toString(clickId);
             userAnswerStr = userAnswerStr + userClickStr;
             userAnswer = Integer.parseInt(userAnswerStr);
-            answerTextView.setText(userAnswerStr);
+            if (isNumberNegative) {
+                if (!answerTextView.getText().toString().contains("-")) {
+                    answerTextView.setText("-" + userAnswerStr);
+                } else {
+                    answerTextView.setText(userAnswerStr);
+                }
+                if (userAnswer > 0) userAnswer = userAnswer * (-1);
+            } else {
+                answerTextView.setText(userAnswerStr);
+            }
         }
     }
 
@@ -272,6 +290,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             evaluationTextView.setText(R.string.wrong_answer);
             evaluationTextView.setTextColor(Color.RED);
         }
+
+        isNumberNegative = false;
     }
 
     /**
@@ -366,7 +386,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                         String numberStr = Integer.toString(userAnswer);
                         answerTextView.setText(numberStr);
                     } else {
-                        answerTextView.setText("-");
+                        if (!answerTextView.getText().toString().contains("-")) {
+                            answerTextView.setText("-");
+                        }
                     }
                 } else {
                     isNumberNegative = false;
