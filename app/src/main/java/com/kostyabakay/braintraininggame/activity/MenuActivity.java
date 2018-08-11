@@ -35,23 +35,19 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.menu_play_button:
-                Intent playIntent = new Intent(MenuActivity.this, GameActivity.class);
-                startActivity(playIntent);
+                GameActivity.start(this);
                 break;
 
             case R.id.menu_rules_button:
-                Intent rulesIntent = new Intent(MenuActivity.this, RulesActivity.class);
-                startActivity(rulesIntent);
+                RulesActivity.start(this);
                 break;
 
             case R.id.menu_author_button:
-                Intent authorIntent = new Intent(MenuActivity.this, AuthorActivity.class);
-                startActivity(authorIntent);
+                AuthorActivity.start(this);
                 break;
 
             case R.id.menu_settings_button:
-                Intent settingsIntent = new Intent(MenuActivity.this, SettingsActivity.class);
-                startActivity(settingsIntent);
+                SettingsActivity.start(this);
                 break;
 
             case R.id.menu_exit_button:

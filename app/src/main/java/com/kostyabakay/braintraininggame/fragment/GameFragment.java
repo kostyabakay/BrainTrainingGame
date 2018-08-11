@@ -40,6 +40,14 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private boolean isAnswerEmpty = true;
     private boolean isGameFinished = false;
 
+    public static GameFragment newInstance() {
+        Bundle args = new Bundle();
+        GameFragment fragment = new GameFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    //region Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_game, container, false);
@@ -51,42 +59,32 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         initView();
         startGame();
     }
+    //endregion
 
     /**
      * Initialization view elements on the screen.
      */
     private void initView() {
-        evaluationTextView = (TextView) getActivity().findViewById(R.id.evaluation_text_view);
-        expressionTextView = (TextView) getActivity().findViewById(R.id.expression_text_view);
-        answerTextView = (TextView) getActivity().findViewById(R.id.answer_text_view);
-        timerTextView = (TextView) getActivity().findViewById(R.id.timer_text_view);
+        // FIXME: getActivity can be null
+        evaluationTextView = getActivity().findViewById(R.id.evaluation_text_view);
+        expressionTextView = getActivity().findViewById(R.id.expression_text_view);
+        answerTextView = getActivity().findViewById(R.id.answer_text_view);
+        timerTextView = getActivity().findViewById(R.id.timer_text_view);
 
-        Button oneBtn = (Button) getActivity().findViewById(R.id.button_1);
-        Button twoBtn = (Button) getActivity().findViewById(R.id.button_2);
-        Button threeBtn = (Button) getActivity().findViewById(R.id.button_3);
-        Button fourthBtn = (Button) getActivity().findViewById(R.id.button_4);
-        Button fiveBtn = (Button) getActivity().findViewById(R.id.button_5);
-        Button sixBtn = (Button) getActivity().findViewById(R.id.button_6);
-        Button sevenBtn = (Button) getActivity().findViewById(R.id.button_7);
-        Button eightBtn = (Button) getActivity().findViewById(R.id.button_8);
-        Button nineBtn = (Button) getActivity().findViewById(R.id.button_9);
-        Button zeroBtn = (Button) getActivity().findViewById(R.id.button_0);
-        Button deleteBtn = (Button) getActivity().findViewById(R.id.button_delete);
-        Button signBtn = (Button) getActivity().findViewById(R.id.button_sign);
-        checkBtn = (Button) getActivity().findViewById(R.id.button_check);
+        getActivity().findViewById(R.id.button_1).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_2).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_3).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_4).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_5).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_6).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_7).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_8).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_9).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_0).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_delete).setOnClickListener(this);
+        getActivity().findViewById(R.id.button_sign).setOnClickListener(this);
 
-        oneBtn.setOnClickListener(this);
-        twoBtn.setOnClickListener(this);
-        threeBtn.setOnClickListener(this);
-        fourthBtn.setOnClickListener(this);
-        fiveBtn.setOnClickListener(this);
-        sixBtn.setOnClickListener(this);
-        sevenBtn.setOnClickListener(this);
-        eightBtn.setOnClickListener(this);
-        nineBtn.setOnClickListener(this);
-        zeroBtn.setOnClickListener(this);
-        deleteBtn.setOnClickListener(this);
-        signBtn.setOnClickListener(this);
+        checkBtn = getActivity().findViewById(R.id.button_check);
         checkBtn.setOnClickListener(this);
     }
 
@@ -310,9 +308,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * If game session was finished this method will replace new fragment with score of the game.
      */
     private void showGameScoreFragment() {
-        ScoreFragment scoreFragment = new ScoreFragment();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_game, scoreFragment);
+        fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance());
         fragmentTransaction.commit();
     }
 

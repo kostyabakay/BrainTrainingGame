@@ -1,8 +1,10 @@
 package com.kostyabakay.braintraininggame.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,18 +15,25 @@ import com.kostyabakay.braintraininggame.R;
  * Created by Kostya on 08.03.2016.
  * This class represents Activity with information about author of this application.
  */
-public class AuthorActivity extends AppCompatActivity {
+public class AuthorActivity extends BaseActivity {
     private static final String TWITTER_URL = "https://twitter.com/Kostya_Bakay";
     private static final String INSTAGRAM_URL = "https://instagram.com/kostya_bakay";
     private static final String GITHUB_URL = "https://github.com/kostyabak";
     private static final String LINKEDIN_URL = "https://ua.linkedin.com/in/kostyabakay";
 
+    public static void start(@NonNull Context context) {
+        Intent starter = new Intent(context, AuthorActivity.class);
+        context.startActivity(starter);
+    }
+
+    //region BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_author);
         initView();
     }
+    //endregion
 
     /**
      * Initialization view elements on the screen.
