@@ -1,4 +1,4 @@
-package com.kostyabakay.braintraininggame.constant;
+package com.kostyabakay.braintraininggame.common.constant;
 
 public final class SocialUrl {
     private SocialUrl() {

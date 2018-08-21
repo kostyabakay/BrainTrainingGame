@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.kostyabakay.braintraininggame.R;
-import com.kostyabakay.braintraininggame.constant.SocialUrl;
+import com.kostyabakay.braintraininggame.common.constant.SocialUrl;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

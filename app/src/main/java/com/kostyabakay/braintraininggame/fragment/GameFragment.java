@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.kostyabakay.braintraininggame.AppData;
 import com.kostyabakay.braintraininggame.R;
+import com.kostyabakay.braintraininggame.common.def.DifficultyDef;
 import com.kostyabakay.braintraininggame.model.EasyExpression;
 import com.kostyabakay.braintraininggame.model.HardExpression;
 import com.kostyabakay.braintraininggame.model.MediumExpression;
@@ -25,9 +26,6 @@ import com.kostyabakay.braintraininggame.model.MediumExpression;
  */
 public class GameFragment extends Fragment implements View.OnClickListener {
     private final int[] USER_DIGIT_CLICK = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    private final String DIFFICULTY_EASY = "1";
-    private final String DIFFICULTY_MEDIUM = "2";
-    private final String DIFFICULTY_HARD = "3";
     private TextView evaluationTextView, expressionTextView, answerTextView, timerTextView;
     private Button checkBtn;
     private EasyExpression easyExpression;
@@ -155,15 +153,15 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 getString(R.string.pref_difficulty_default));
 
         switch (difficulty) {
-            case DIFFICULTY_EASY:
+            case DifficultyDef.EASY:
                 easyExpression = new EasyExpression();
                 expressionAnswer = easyExpression.getCalculationResult();
                 break;
-            case DIFFICULTY_MEDIUM:
+            case DifficultyDef.MEDIUM:
                 mediumExpression = new MediumExpression();
                 expressionAnswer = mediumExpression.getCalculationResult();
                 break;
-            case DIFFICULTY_HARD:
+            case DifficultyDef.HARD:
                 hardExpression = new HardExpression();
                 expressionAnswer = hardExpression.getCalculationResult();
                 break;
@@ -179,18 +177,18 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 getString(R.string.pref_difficulty_default));
 
         switch (difficulty) {
-            case DIFFICULTY_EASY:
+            case DifficultyDef.EASY:
                 expressionTextView.setText("" + easyExpression.getFirstTerm() + " "
                         + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
                 break;
-            case DIFFICULTY_MEDIUM:
+            case DifficultyDef.MEDIUM:
                 expressionTextView.setText("" + mediumExpression.getFirstTerm() + " "
                         + mediumExpression.getFirstOperator() + " "
                         + mediumExpression.getSecondTerm() + " "
                         + mediumExpression.getSecondOperator() + " "
                         + mediumExpression.getThirdTerm());
                 break;
-            case DIFFICULTY_HARD:
+            case DifficultyDef.HARD:
                 expressionTextView.setText("" + hardExpression.getFirstTerm() + " "
                         + hardExpression.getFirstOperator() + " "
                         + hardExpression.getSecondTerm() + " " + hardExpression.getSecondOperator()
