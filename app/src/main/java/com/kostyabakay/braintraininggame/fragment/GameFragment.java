@@ -149,8 +149,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      */
     private void createExpression() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String difficulty = preferences.getString(getString(R.string.pref_difficulty_key),
+        String difficultyString = preferences.getString(getString(R.string.pref_difficulty_key),
                 getString(R.string.pref_difficulty_default));
+        int difficulty = Integer.parseInt(difficultyString); // TODO: Handle NumberFormatException
 
         switch (difficulty) {
             case DifficultyDef.EASY:
@@ -173,8 +174,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      */
     private void showExpression() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String difficulty = preferences.getString(getString(R.string.pref_difficulty_key),
+        String difficultyString = preferences.getString(getString(R.string.pref_difficulty_key),
                 getString(R.string.pref_difficulty_default));
+        int difficulty = Integer.parseInt(difficultyString); // TODO: Handle NumberFormatException
 
         switch (difficulty) {
             case DifficultyDef.EASY:

@@ -1,6 +1,6 @@
 package com.kostyabakay.braintraininggame.common.def;
 
-import android.support.annotation.StringDef;
+import android.support.annotation.IntDef;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-@StringDef({DifficultyDef.EASY, DifficultyDef.MEDIUM, DifficultyDef.HARD})
+@IntDef({DifficultyDef.EASY, DifficultyDef.MEDIUM, DifficultyDef.HARD})
 public @interface DifficultyDef {
-    String EASY = "1"; // TODO: Implement IntDef
-    String MEDIUM = "2";
-    String HARD = "3";
+    int EASY = 1;
+    int MEDIUM = 2;
+    int HARD = 3;
 }
