@@ -27,17 +27,17 @@
         <TableRow>
 
             <Button
-                android:id="@+id/button_1"
+                android:id="@+id/button_one"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_one" />
 
             <Button
-                android:id="@+id/button_2"
+                android:id="@+id/button_two"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_two" />
 
             <Button
-                android:id="@+id/button_3"
+                android:id="@+id/button_three"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_three" />
         </TableRow>
@@ -45,17 +45,17 @@
         <TableRow>
 
             <Button
-                android:id="@+id/button_4"
+                android:id="@+id/button_four"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_four" />
 
             <Button
-                android:id="@+id/button_5"
+                android:id="@+id/button_five"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_five" />
 
             <Button
-                android:id="@+id/button_6"
+                android:id="@+id/button_six"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_six" />
         </TableRow>
@@ -63,17 +63,17 @@
         <TableRow>
 
             <Button
-                android:id="@+id/button_7"
+                android:id="@+id/button_seven"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_seven" />
 
             <Button
-                android:id="@+id/button_8"
+                android:id="@+id/button_eight"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_eight" />
 
             <Button
-                android:id="@+id/button_9"
+                android:id="@+id/button_nine"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_nine" />
         </TableRow>
@@ -86,7 +86,7 @@
                 android:text="@string/game_button_delete" />
 
             <Button
-                android:id="@+id/button_0"
+                android:id="@+id/button_zero"
                 style="@style/TableLayoutGameButton"
                 android:text="@string/game_button_zero" />
 
@@ -107,5 +107,4 @@
         android:textColor="@color/primary_text"
         android:textSize="@dimen/text_font_medium"
         android:textStyle="bold" />
-
 </TableLayout>

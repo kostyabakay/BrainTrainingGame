@@ -21,13 +21,15 @@ import com.kostyabakay.braintraininggame.model.EasyExpression;
 import com.kostyabakay.braintraininggame.model.HardExpression;
 import com.kostyabakay.braintraininggame.model.MediumExpression;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by Kostya on 04.03.2016.
  * This class represents fragment for game and GameActivity is the host of this fragment.
  */
-public class GameFragment extends Fragment implements View.OnClickListener {
-    private TextView evaluationTextView, expressionTextView, answerTextView, timerTextView;
-    private Button checkBtn;
+public class GameFragment extends Fragment {
     private EasyExpression easyExpression;
     private MediumExpression mediumExpression;
     private HardExpression hardExpression;
@@ -37,6 +39,23 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private boolean isNumberNegative = false;
     private boolean isAnswerEmpty = true;
     private boolean isGameFinished = false;
+
+    //region ButterKnife BindView
+    @BindView(R.id.evaluation_text_view)
+    TextView mEvaluationTextView;
+
+    @BindView(R.id.expression_text_view)
+    TextView mExpressionTextView;
+
+    @BindView(R.id.answer_text_view)
+    TextView mAnswerTextView;
+
+    @BindView(R.id.timer_text_view)
+    TextView mTimerTextView;
+
+    @BindView(R.id.button_check)
+    Button mCheckButton;
+    //endregion
 
     public static GameFragment newInstance() {
         Bundle args = new Bundle();
@@ -48,43 +67,133 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     //region Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_game, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        initView();
         startGame();
     }
     //endregion
 
-    /**
-     * Initialization view elements on the screen.
-     */
-    private void initView() {
-        // FIXME: getActivity can be null
-        evaluationTextView = getActivity().findViewById(R.id.evaluation_text_view);
-        expressionTextView = getActivity().findViewById(R.id.expression_text_view);
-        answerTextView = getActivity().findViewById(R.id.answer_text_view);
-        timerTextView = getActivity().findViewById(R.id.timer_text_view);
-
-        getActivity().findViewById(R.id.button_1).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_2).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_3).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_4).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_5).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_6).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_7).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_8).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_9).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_0).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_delete).setOnClickListener(this);
-        getActivity().findViewById(R.id.button_sign).setOnClickListener(this);
-
-        checkBtn = getActivity().findViewById(R.id.button_check);
-        checkBtn.setOnClickListener(this);
+    //region ButterKnife OnClick
+    @OnClick(R.id.button_zero)
+    void onZeroButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.ZERO);
     }
+
+    @OnClick(R.id.button_one)
+    void onOneButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.ONE);
+    }
+
+    @OnClick(R.id.button_two)
+    void onTwoButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.TWO);
+    }
+
+    @OnClick(R.id.button_three)
+    void onThreeButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.THREE);
+    }
+
+    @OnClick(R.id.button_four)
+    void onFourButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.FOUR);
+    }
+
+    @OnClick(R.id.button_five)
+    void onFiveButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.FIVE);
+    }
+
+    @OnClick(R.id.button_six)
+    void onSixButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.SIX);
+    }
+
+    @OnClick(R.id.button_seven)
+    void onSevenButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.SEVEN);
+    }
+
+    @OnClick(R.id.button_eight)
+    void onEightButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.EIGHT);
+    }
+
+    @OnClick(R.id.button_nine)
+    void onNineButtonClick() {
+        mEvaluationTextView.setText("");
+        showUserAnswer(Digit.NINE);
+    }
+
+    @OnClick(R.id.button_delete)
+    void onDeleteButtonClick() {
+        mEvaluationTextView.setText("");
+        mAnswerTextView.setText("0");
+        userAnswer = 0;
+        isAnswerEmpty = true;
+        isNumberNegative = false;
+    }
+
+    @OnClick(R.id.button_sign)
+    void onSignButtonClick() {
+        mEvaluationTextView.setText("");
+
+        if (!isNumberNegative) {
+            isNumberNegative = true;
+            if (userAnswer != 0) {
+                userAnswer = Integer.parseInt(mAnswerTextView.getText().toString());
+                userAnswer = changeSign(userAnswer);
+                String numberStr = Integer.toString(userAnswer);
+                mAnswerTextView.setText(numberStr);
+            } else {
+                if (!mAnswerTextView.getText().toString().contains("-")) {
+                    mAnswerTextView.setText("-");
+                }
+            }
+        } else {
+            isNumberNegative = false;
+            if (userAnswer != 0) {
+                userAnswer = Integer.parseInt(mAnswerTextView.getText().toString());
+                userAnswer = changeSign(userAnswer);
+                String numberStr = Integer.toString(userAnswer);
+                mAnswerTextView.setText(numberStr);
+            } else {
+                mAnswerTextView.setText("");
+            }
+        }
+    }
+
+    @OnClick(R.id.button_check)
+    void onCheckButtonClick() {
+        if (isGameFinished) {
+            showGameScoreFragment();
+        } else {
+            if (mCheckButton.getText().equals(getString(R.string.game_button_next))) {
+                mCheckButton.setText(R.string.game_button_check);
+                mEvaluationTextView.setText("");
+            } else {
+                checkAnswer(userAnswer);
+            }
+
+            nextExpression();
+        }
+    }
+    //endregion
 
     /**
      * Starts game.
@@ -128,9 +237,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * Clears views for user and prepares variables for next the expression.
      */
     private void clearData() {
-        expressionTextView.setText("");
+        mExpressionTextView.setText("");
         userAnswer = 0;
-        answerTextView.setText(Integer.toString(userAnswer));
+        mAnswerTextView.setText(Integer.toString(userAnswer));
         answerTime = 0;
         isAnswerEmpty = true;
     }
@@ -139,9 +248,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * If game was finished prints to user hint how to open score of the game.
      */
     private void printHint() {
-        answerTextView.setText(R.string.game_finished);
-        timerTextView.setText(R.string.click_score);
-        checkBtn.setText(R.string.score);
+        mAnswerTextView.setText(R.string.game_finished);
+        mTimerTextView.setText(R.string.click_score);
+        mCheckButton.setText(R.string.score);
     }
 
     /**
@@ -180,18 +289,18 @@ public class GameFragment extends Fragment implements View.OnClickListener {
 
         switch (difficulty) {
             case Difficulty.EASY:
-                expressionTextView.setText("" + easyExpression.getFirstTerm() + " "
+                mExpressionTextView.setText("" + easyExpression.getFirstTerm() + " "
                         + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
                 break;
             case Difficulty.MEDIUM:
-                expressionTextView.setText("" + mediumExpression.getFirstTerm() + " "
+                mExpressionTextView.setText("" + mediumExpression.getFirstTerm() + " "
                         + mediumExpression.getFirstOperator() + " "
                         + mediumExpression.getSecondTerm() + " "
                         + mediumExpression.getSecondOperator() + " "
                         + mediumExpression.getThirdTerm());
                 break;
             case Difficulty.HARD:
-                expressionTextView.setText("" + hardExpression.getFirstTerm() + " "
+                mExpressionTextView.setText("" + hardExpression.getFirstTerm() + " "
                         + hardExpression.getFirstOperator() + " "
                         + hardExpression.getSecondTerm() + " " + hardExpression.getSecondOperator()
                         + " " + hardExpression.getThirdTerm() + " "
@@ -208,35 +317,35 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * @param digit
      */
     private void showUserAnswer(@Digit int digit) {
-        evaluationTextView.setText("");
+        mEvaluationTextView.setText("");
         if (isAnswerEmpty) {
-            answerTextView.setText("");
+            mAnswerTextView.setText("");
             userAnswer = digit;
             if (isNumberNegative) {
-                if (!answerTextView.getText().toString().contains("-")) {
-                    answerTextView.setText("-" + Integer.toString(digit));
+                if (!mAnswerTextView.getText().toString().contains("-")) {
+                    mAnswerTextView.setText("-" + Integer.toString(digit));
                 } else {
-                    answerTextView.setText(Integer.toString(digit));
+                    mAnswerTextView.setText(Integer.toString(digit));
                 }
                 if (userAnswer > 0) userAnswer = userAnswer * (-1);
             } else {
-                answerTextView.setText(Integer.toString(digit));
+                mAnswerTextView.setText(Integer.toString(digit));
             }
             isAnswerEmpty = false;
         } else {
             String userAnswerStr = Integer.toString(userAnswer);
             String userClickStr = Integer.toString(digit);
             userAnswerStr = userAnswerStr + userClickStr;
-            userAnswer = Integer.parseInt(userAnswerStr);
+            userAnswer = Integer.parseInt(userAnswerStr); // FIXME: java.lang.NumberFormatException: For input string: "4563210000"
             if (isNumberNegative) {
-                if (!answerTextView.getText().toString().contains("-")) {
-                    answerTextView.setText("-" + userAnswerStr);
+                if (!mAnswerTextView.getText().toString().contains("-")) {
+                    mAnswerTextView.setText("-" + userAnswerStr);
                 } else {
-                    answerTextView.setText(userAnswerStr);
+                    mAnswerTextView.setText(userAnswerStr);
                 }
                 if (userAnswer > 0) userAnswer = userAnswer * (-1);
             } else {
-                answerTextView.setText(userAnswerStr);
+                mAnswerTextView.setText(userAnswerStr);
             }
         }
     }
@@ -249,13 +358,13 @@ public class GameFragment extends Fragment implements View.OnClickListener {
 
             public void onTick(long millisUntilFinished) {
                 answerTime = millisUntilFinished / 1000;
-                timerTextView.setText(Long.toString(answerTime));
+                mTimerTextView.setText(Long.toString(answerTime));
             }
 
             public void onFinish() {
-                timerTextView.setText("0");
+                mTimerTextView.setText("0");
                 checkAnswer(userAnswer);
-                checkBtn.setText(R.string.game_button_next);
+                mCheckButton.setText(R.string.game_button_next);
             }
         }.start();
     }
@@ -278,15 +387,15 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private void checkAnswer(int answer) {
         timer.cancel();
         if (expressionAnswer == answer) {
-            evaluationTextView.setText(R.string.correct_answer);
-            evaluationTextView.setTextColor(Color.GREEN);
-            if (!checkBtn.getText().equals(getString(R.string.score))) {
+            mEvaluationTextView.setText(R.string.correct_answer);
+            mEvaluationTextView.setTextColor(Color.GREEN);
+            if (!mCheckButton.getText().equals(getString(R.string.score))) {
                 AppData.correctAnswers++;
                 calculateScore();
             }
         } else {
-            evaluationTextView.setText(R.string.wrong_answer);
-            evaluationTextView.setTextColor(Color.RED);
+            mEvaluationTextView.setText(R.string.wrong_answer);
+            mEvaluationTextView.setTextColor(Color.RED);
         }
 
         isNumberNegative = false;
@@ -311,112 +420,5 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance());
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button_0:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.ZERO);
-                break;
-
-            case R.id.button_1:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.ONE);
-                break;
-
-            case R.id.button_2:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.TWO);
-                break;
-
-            case R.id.button_3:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.THREE);
-                break;
-
-            case R.id.button_4:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.FOUR);
-                break;
-
-            case R.id.button_5:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.FIVE);
-                break;
-
-            case R.id.button_6:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.SIX);
-                break;
-
-            case R.id.button_7:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.SEVEN);
-                break;
-
-            case R.id.button_8:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.EIGHT);
-                break;
-
-            case R.id.button_9:
-                evaluationTextView.setText("");
-                showUserAnswer(Digit.NINE);
-                break;
-
-            case R.id.button_delete:
-                evaluationTextView.setText("");
-                answerTextView.setText("0");
-                userAnswer = 0;
-                isAnswerEmpty = true;
-                isNumberNegative = false;
-                break;
-
-            case R.id.button_sign:
-                evaluationTextView.setText("");
-
-                if (!isNumberNegative) {
-                    isNumberNegative = true;
-                    if (userAnswer != 0) {
-                        userAnswer = Integer.parseInt(answerTextView.getText().toString());
-                        userAnswer = changeSign(userAnswer);
-                        String numberStr = Integer.toString(userAnswer);
-                        answerTextView.setText(numberStr);
-                    } else {
-                        if (!answerTextView.getText().toString().contains("-")) {
-                            answerTextView.setText("-");
-                        }
-                    }
-                } else {
-                    isNumberNegative = false;
-                    if (userAnswer != 0) {
-                        userAnswer = Integer.parseInt(answerTextView.getText().toString());
-                        userAnswer = changeSign(userAnswer);
-                        String numberStr = Integer.toString(userAnswer);
-                        answerTextView.setText(numberStr);
-                    } else {
-                        answerTextView.setText("");
-                    }
-                }
-
-                break;
-
-            case R.id.button_check:
-                if (isGameFinished) {
-                    showGameScoreFragment();
-                } else {
-                    if (checkBtn.getText().equals(getString(R.string.game_button_next))) {
-                        checkBtn.setText(R.string.game_button_check);
-                        evaluationTextView.setText("");
-                    } else {
-                        checkAnswer(userAnswer);
-                    }
-
-                    nextExpression();
-                    break;
-                }
-        }
     }
 }
