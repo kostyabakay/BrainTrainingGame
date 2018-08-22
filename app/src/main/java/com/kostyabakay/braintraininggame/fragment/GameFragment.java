@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 import com.kostyabakay.braintraininggame.AppData;
 import com.kostyabakay.braintraininggame.R;
-import com.kostyabakay.braintraininggame.common.def.DifficultyDef;
+import com.kostyabakay.braintraininggame.common.def.Difficulty;
+import com.kostyabakay.braintraininggame.common.def.Digit;
 import com.kostyabakay.braintraininggame.model.EasyExpression;
 import com.kostyabakay.braintraininggame.model.HardExpression;
 import com.kostyabakay.braintraininggame.model.MediumExpression;
@@ -25,7 +26,6 @@ import com.kostyabakay.braintraininggame.model.MediumExpression;
  * This class represents fragment for game and GameActivity is the host of this fragment.
  */
 public class GameFragment extends Fragment implements View.OnClickListener {
-    private final int[] USER_DIGIT_CLICK = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     private TextView evaluationTextView, expressionTextView, answerTextView, timerTextView;
     private Button checkBtn;
     private EasyExpression easyExpression;
@@ -154,15 +154,15 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         int difficulty = Integer.parseInt(difficultyString); // TODO: Handle NumberFormatException
 
         switch (difficulty) {
-            case DifficultyDef.EASY:
+            case Difficulty.EASY:
                 easyExpression = new EasyExpression();
                 expressionAnswer = easyExpression.getCalculationResult();
                 break;
-            case DifficultyDef.MEDIUM:
+            case Difficulty.MEDIUM:
                 mediumExpression = new MediumExpression();
                 expressionAnswer = mediumExpression.getCalculationResult();
                 break;
-            case DifficultyDef.HARD:
+            case Difficulty.HARD:
                 hardExpression = new HardExpression();
                 expressionAnswer = hardExpression.getCalculationResult();
                 break;
@@ -179,18 +179,18 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         int difficulty = Integer.parseInt(difficultyString); // TODO: Handle NumberFormatException
 
         switch (difficulty) {
-            case DifficultyDef.EASY:
+            case Difficulty.EASY:
                 expressionTextView.setText("" + easyExpression.getFirstTerm() + " "
                         + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
                 break;
-            case DifficultyDef.MEDIUM:
+            case Difficulty.MEDIUM:
                 expressionTextView.setText("" + mediumExpression.getFirstTerm() + " "
                         + mediumExpression.getFirstOperator() + " "
                         + mediumExpression.getSecondTerm() + " "
                         + mediumExpression.getSecondOperator() + " "
                         + mediumExpression.getThirdTerm());
                 break;
-            case DifficultyDef.HARD:
+            case Difficulty.HARD:
                 expressionTextView.setText("" + hardExpression.getFirstTerm() + " "
                         + hardExpression.getFirstOperator() + " "
                         + hardExpression.getSecondTerm() + " " + hardExpression.getSecondOperator()
@@ -205,27 +205,27 @@ public class GameFragment extends Fragment implements View.OnClickListener {
      * button user clicked. If answer was not empty before method will add digit at right side
      * to the previous answer.
      *
-     * @param clickId
+     * @param digit
      */
-    private void showUserAnswer(int clickId) {
+    private void showUserAnswer(@Digit int digit) {
         evaluationTextView.setText("");
         if (isAnswerEmpty) {
             answerTextView.setText("");
-            userAnswer = clickId;
+            userAnswer = digit;
             if (isNumberNegative) {
                 if (!answerTextView.getText().toString().contains("-")) {
-                    answerTextView.setText("-" + Integer.toString(clickId));
+                    answerTextView.setText("-" + Integer.toString(digit));
                 } else {
-                    answerTextView.setText(Integer.toString(clickId));
+                    answerTextView.setText(Integer.toString(digit));
                 }
                 if (userAnswer > 0) userAnswer = userAnswer * (-1);
             } else {
-                answerTextView.setText(Integer.toString(clickId));
+                answerTextView.setText(Integer.toString(digit));
             }
             isAnswerEmpty = false;
         } else {
             String userAnswerStr = Integer.toString(userAnswer);
-            String userClickStr = Integer.toString(clickId);
+            String userClickStr = Integer.toString(digit);
             userAnswerStr = userAnswerStr + userClickStr;
             userAnswer = Integer.parseInt(userAnswerStr);
             if (isNumberNegative) {
@@ -318,52 +318,52 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.button_0:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[0]);
+                showUserAnswer(Digit.ZERO);
                 break;
 
             case R.id.button_1:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[1]);
+                showUserAnswer(Digit.ONE);
                 break;
 
             case R.id.button_2:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[2]);
+                showUserAnswer(Digit.TWO);
                 break;
 
             case R.id.button_3:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[3]);
+                showUserAnswer(Digit.THREE);
                 break;
 
             case R.id.button_4:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[4]);
+                showUserAnswer(Digit.FOUR);
                 break;
 
             case R.id.button_5:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[5]);
+                showUserAnswer(Digit.FIVE);
                 break;
 
             case R.id.button_6:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[6]);
+                showUserAnswer(Digit.SIX);
                 break;
 
             case R.id.button_7:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[7]);
+                showUserAnswer(Digit.SEVEN);
                 break;
 
             case R.id.button_8:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[8]);
+                showUserAnswer(Digit.EIGHT);
                 break;
 
             case R.id.button_9:
                 evaluationTextView.setText("");
-                showUserAnswer(USER_DIGIT_CLICK[9]);
+                showUserAnswer(Digit.NINE);
                 break;
 
             case R.id.button_delete:

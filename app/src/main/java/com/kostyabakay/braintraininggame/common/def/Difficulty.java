@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-@IntDef({DifficultyDef.EASY, DifficultyDef.MEDIUM, DifficultyDef.HARD})
-public @interface DifficultyDef {
+@IntDef({Difficulty.EASY, Difficulty.MEDIUM, Difficulty.HARD})
+public @interface Difficulty {
     int EASY = 1;
     int MEDIUM = 2;
     int HARD = 3;
