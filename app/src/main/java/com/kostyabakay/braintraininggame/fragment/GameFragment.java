@@ -416,6 +416,7 @@ public class GameFragment extends Fragment {
     /**
      * If game session was finished this method will replace new fragment with score of the game.
      */
+    // TODO: Add Activity interaction
     private void showGameScoreFragment() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance());
