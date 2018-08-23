@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.kostyabakay.braintraininggame.AppData;
 import com.kostyabakay.braintraininggame.R;
+import com.kostyabakay.braintraininggame.common.constant.Const;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +28,12 @@ public class ScoreFragment extends Fragment {
     TextView mScoreTextView;
     //endregion
 
-    public static ScoreFragment newInstance() {
+    public static ScoreFragment newInstance(int gamesCount, int correctAnswers, long score) {
         Bundle args = new Bundle();
         ScoreFragment fragment = new ScoreFragment();
+        args.putInt(Const.BundleKey.GAMES_COUNT, gamesCount);
+        args.putInt(Const.BundleKey.CORRECT_ANSWERS, correctAnswers);
+        args.putLong(Const.BundleKey.SCORE, score);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,8 +49,14 @@ public class ScoreFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCorrectAnswersTextView.setText(Integer.toString(AppData.correctAnswers) + " / " + (Integer.toString(AppData.gamesCount)));
-        mScoreTextView.setText(Long.toString(AppData.score));
+        Bundle args = getArguments();
+        if (args != null) {
+            int gamesCount = args.getInt(Const.BundleKey.GAMES_COUNT);
+            int correctAnswers = args.getInt(Const.BundleKey.CORRECT_ANSWERS);
+            int score = args.getInt(Const.BundleKey.SCORE);
+            mCorrectAnswersTextView.setText(Integer.toString(correctAnswers) + " / " + (Integer.toString(gamesCount)));
+            mScoreTextView.setText(Long.toString(score));
+        }
     }
     //endregion
 }

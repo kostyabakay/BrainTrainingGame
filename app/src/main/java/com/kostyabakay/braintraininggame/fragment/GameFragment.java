@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.kostyabakay.braintraininggame.AppData;
 import com.kostyabakay.braintraininggame.R;
 import com.kostyabakay.braintraininggame.common.def.Difficulty;
 import com.kostyabakay.braintraininggame.common.def.Digit;
@@ -39,6 +38,9 @@ public class GameFragment extends Fragment {
     private boolean isNumberNegative = false;
     private boolean isAnswerEmpty = true;
     private boolean isGameFinished = false;
+    private int gamesCount;
+    private int correctAnswers;
+    private long score;
 
     //region ButterKnife BindView
     @BindView(R.id.evaluation_text_view)
@@ -199,9 +201,9 @@ public class GameFragment extends Fragment {
      * Starts game.
      */
     private void startGame() {
-        AppData.gamesCount = 0;
-        AppData.correctAnswers = 0;
-        AppData.score = 0;
+        gamesCount = 0;
+        correctAnswers = 0;
+        score = 0;
         nextExpression();
     }
 
@@ -226,8 +228,8 @@ public class GameFragment extends Fragment {
      * Checks count of the game in one session.
      */
     private void checkGamesCount() {
-        if (AppData.gamesCount < 10) {
-            AppData.gamesCount++;
+        if (gamesCount < 10) {
+            gamesCount++;
         } else {
             isGameFinished = true;
         }
@@ -390,7 +392,7 @@ public class GameFragment extends Fragment {
             mEvaluationTextView.setText(R.string.correct_answer);
             mEvaluationTextView.setTextColor(Color.GREEN);
             if (!mCheckButton.getText().equals(getString(R.string.score))) {
-                AppData.correctAnswers++;
+                correctAnswers++;
                 calculateScore();
             }
         } else {
@@ -406,10 +408,10 @@ public class GameFragment extends Fragment {
      */
     private void calculateScore() {
         if (answerTime == 10) {
-            AppData.score = AppData.score + 100;
+            score = score + 100;
         } else if (answerTime > 0 && answerTime < 10) {
             long k = 100 / (10 - answerTime);
-            AppData.score = AppData.score + k;
+            score = score + k;
         }
     }
 
@@ -419,7 +421,7 @@ public class GameFragment extends Fragment {
     // TODO: Add Activity interaction
     private void showGameScoreFragment() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance());
+        fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance(gamesCount, correctAnswers, score));
         fragmentTransaction.commit();
     }
 }
