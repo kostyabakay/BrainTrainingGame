@@ -16,9 +16,8 @@ import android.widget.TextView;
 import com.kostyabakay.braintraininggame.R;
 import com.kostyabakay.braintraininggame.common.def.Difficulty;
 import com.kostyabakay.braintraininggame.common.def.Digit;
-import com.kostyabakay.braintraininggame.math.operand.Operand;
+import com.kostyabakay.braintraininggame.math.expression.ExpressionGenerator;
 import com.kostyabakay.braintraininggame.math.expression.Expression;
-import com.kostyabakay.braintraininggame.math.operator.Adder;
 import com.kostyabakay.braintraininggame.model.HardExpression;
 import com.kostyabakay.braintraininggame.model.MediumExpression;
 
@@ -268,8 +267,7 @@ public class GameFragment extends Fragment {
 
         switch (difficulty) {
             case Difficulty.EASY:
-                // TODO: Just hardcoded expression, should be added generation
-                easyExpression = new Adder(new Operand(4), new Operand(5));
+                easyExpression = ExpressionGenerator.getInstance().generate(Difficulty.EASY);
                 expressionAnswer = easyExpression.calculate();
                 break;
             case Difficulty.MEDIUM:
