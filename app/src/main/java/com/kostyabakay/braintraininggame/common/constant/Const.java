@@ -12,4 +12,12 @@ public final class Const {
         public static final String CORRECT_ANSWERS = "KEY_CORRECT_ANSWERS";
         public static final String SCORE = "KEY_SCORE";
     }
+
+    public final class Symbol {
+        private Symbol() {
+        }
+
+        public static final String SPACE = " ";
+        public static final String SLASH = "/";
+    }
 }

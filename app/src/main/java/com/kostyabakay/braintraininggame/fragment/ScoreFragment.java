@@ -2,6 +2,7 @@ package com.kostyabakay.braintraininggame.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +11,11 @@ import android.widget.TextView;
 
 import com.kostyabakay.braintraininggame.R;
 import com.kostyabakay.braintraininggame.common.constant.Const;
+import com.kostyabakay.braintraininggame.common.logger.L;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Kostya on 04.03.2016.
- * This class represents fragment for score of finished game and GameActivity is the host of this fragment.
- */
 public class ScoreFragment extends Fragment {
 
     //region ButterKnife BindView
@@ -47,16 +45,32 @@ public class ScoreFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@Nullable View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Bundle args = getArguments();
+        showScore(getArguments());
+    }
+    //endregion
+
+    //region Utility API
+    private void showScore(@Nullable Bundle args) {
         if (args != null) {
             int gamesCount = args.getInt(Const.BundleKey.GAMES_COUNT);
             int correctAnswers = args.getInt(Const.BundleKey.CORRECT_ANSWERS);
             int score = args.getInt(Const.BundleKey.SCORE);
-            mCorrectAnswersTextView.setText(Integer.toString(correctAnswers) + " / " + (Integer.toString(gamesCount)));
-            mScoreTextView.setText(Long.toString(score));
+            mCorrectAnswersTextView.setText(formatCorrectAnswers(correctAnswers, gamesCount));
+            mScoreTextView.setText(String.valueOf(score));
+        } else {
+            L.i("Bundle is null");
         }
+    }
+
+    @NonNull
+    private String formatCorrectAnswers(int correctAnswers, int gamesCount) {
+        return String.valueOf(correctAnswers)
+                + Const.Symbol.SPACE
+                + Const.Symbol.SLASH
+                + Const.Symbol.SPACE
+                + (String.valueOf(gamesCount));
     }
     //endregion
 }
