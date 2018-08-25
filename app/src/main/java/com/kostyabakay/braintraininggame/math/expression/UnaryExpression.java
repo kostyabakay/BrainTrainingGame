@@ -2,8 +2,9 @@ package com.kostyabakay.braintraininggame.math.expression;
 
 import android.support.annotation.NonNull;
 
-import com.kostyabakay.braintraininggame.math.expression.Expression;
-
+/**
+ * Composite Design Pattern: Container
+ */
 public abstract class UnaryExpression implements Expression {
 
     @NonNull

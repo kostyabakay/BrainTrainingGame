@@ -2,6 +2,9 @@ package com.kostyabakay.braintraininggame.math.operand;
 
 import com.kostyabakay.braintraininggame.math.expression.Expression;
 
+/**
+ * Composite Design Pattern: Leaf
+ */
 public class Operand implements Expression {
 
     private int mValue;
