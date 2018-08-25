@@ -4,6 +4,8 @@ import com.kostyabakay.braintraininggame.common.def.Difficulty;
 import com.kostyabakay.braintraininggame.math.operand.Operand;
 import com.kostyabakay.braintraininggame.math.operator.Adder;
 
+import java.util.Random;
+
 /**
  * Singleton Design Pattern
  */
@@ -27,6 +29,17 @@ public class ExpressionGenerator {
 
     public Expression generate(@Difficulty int difficulty) {
         // TODO: Implement expression generation
-        return new Adder(new Operand(4), new Operand(5));
+        switch (difficulty) {
+            case Difficulty.EASY:
+                return new Adder(new Operand(generateOperand()), new Operand(generateOperand()));
+            default:
+                throw new UnsupportedOperationException();
+        }
     }
+
+    //region Utility API
+    private int generateOperand() {
+        return new Random().nextInt(10);
+    }
+    //endregion
 }
