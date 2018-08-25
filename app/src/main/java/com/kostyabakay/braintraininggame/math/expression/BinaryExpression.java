@@ -1,0 +1,14 @@
+package com.kostyabakay.braintraininggame.math.expression;
+
+import android.support.annotation.NonNull;
+
+public abstract class BinaryExpression extends UnaryExpression {
+
+    @NonNull
+    protected Expression mLeft;
+
+    public BinaryExpression(@NonNull Expression left, @NonNull Expression right) {
+        super(right);
+        mLeft = left;
+    }
+}

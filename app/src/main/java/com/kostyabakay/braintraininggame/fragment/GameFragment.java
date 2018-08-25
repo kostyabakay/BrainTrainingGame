@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.kostyabakay.braintraininggame.R;
 import com.kostyabakay.braintraininggame.common.def.Difficulty;
 import com.kostyabakay.braintraininggame.common.def.Digit;
-import com.kostyabakay.braintraininggame.model.EasyExpression;
+import com.kostyabakay.braintraininggame.math.operand.Operand;
+import com.kostyabakay.braintraininggame.math.expression.Expression;
+import com.kostyabakay.braintraininggame.math.operator.Adder;
 import com.kostyabakay.braintraininggame.model.HardExpression;
 import com.kostyabakay.braintraininggame.model.MediumExpression;
 
@@ -29,7 +31,7 @@ import butterknife.OnClick;
  * This class represents fragment for game and GameActivity is the host of this fragment.
  */
 public class GameFragment extends Fragment {
-    private EasyExpression easyExpression;
+    private Expression easyExpression;
     private MediumExpression mediumExpression;
     private HardExpression hardExpression;
     private CountDownTimer timer;
@@ -266,8 +268,9 @@ public class GameFragment extends Fragment {
 
         switch (difficulty) {
             case Difficulty.EASY:
-                easyExpression = new EasyExpression();
-                expressionAnswer = easyExpression.getCalculationResult();
+                // TODO: Just hardcoded expression, should be added generation
+                easyExpression = new Adder(new Operand(4), new Operand(5));
+                expressionAnswer = easyExpression.calculate();
                 break;
             case Difficulty.MEDIUM:
                 mediumExpression = new MediumExpression();
@@ -291,8 +294,7 @@ public class GameFragment extends Fragment {
 
         switch (difficulty) {
             case Difficulty.EASY:
-                mExpressionTextView.setText("" + easyExpression.getFirstTerm() + " "
-                        + easyExpression.getOperator() + " " + easyExpression.getSecondTerm());
+                mExpressionTextView.setText(easyExpression.toString());
                 break;
             case Difficulty.MEDIUM:
                 mExpressionTextView.setText("" + mediumExpression.getFirstTerm() + " "
