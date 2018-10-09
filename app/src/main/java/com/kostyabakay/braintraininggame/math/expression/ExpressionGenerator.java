@@ -40,8 +40,10 @@ public class ExpressionGenerator {
             case Difficulty.EASY:
                 return generateOperator(generateOperand(), generateOperand());
             case Difficulty.MEDIUM:
+                // TODO: Fix operation priority
                 return generateOperator(generateOperator(generateOperand(), generateOperand()), generateOperand());
             case Difficulty.HARD:
+                // TODO: Fix operation priority
                 return generateOperator(generateOperator(generateOperand(), generateOperand()), generateOperator(generateOperand(), generateOperand()));
             default:
                 throw new UnsupportedOperationException();
@@ -60,6 +62,7 @@ public class ExpressionGenerator {
             case Operator.MULTIPLICATION:
                 return new Multiplier(left, right);
             case Operator.DIVISION:
+                // TODO: Check division generation
                 return new Divider(left, right);
             default:
                 throw new UnsupportedOperationException();

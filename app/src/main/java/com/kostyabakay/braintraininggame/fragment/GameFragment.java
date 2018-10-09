@@ -298,13 +298,19 @@ public class GameFragment extends Fragment {
 
         switch (difficulty) {
             case Difficulty.EASY:
-                mExpressionTextView.setText(mEasyExpression.toString());
+                if (mEasyExpression != null) {
+                    mExpressionTextView.setText(mEasyExpression.toString());
+                }
                 break;
             case Difficulty.MEDIUM:
-                mExpressionTextView.setText(mMediumExpression.toString());
+                if (mMediumExpression != null) {
+                    mExpressionTextView.setText(mMediumExpression.toString());
+                }
                 break;
             case Difficulty.HARD:
-                mExpressionTextView.setText(mHardExpression.toString());
+                if (mHardExpression != null) {
+                    mExpressionTextView.setText(mHardExpression.toString());
+                }
                 break;
         }
     }
