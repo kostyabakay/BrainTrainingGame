@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,6 @@ import com.kostyabakay.braintraininggame.common.def.Difficulty;
 import com.kostyabakay.braintraininggame.common.def.Digit;
 import com.kostyabakay.braintraininggame.math.expression.ExpressionGenerator;
 import com.kostyabakay.braintraininggame.math.expression.Expression;
-import com.kostyabakay.braintraininggame.model.HardExpression;
-import com.kostyabakay.braintraininggame.model.MediumExpression;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,9 +29,16 @@ import butterknife.OnClick;
  * This class represents fragment for game and GameActivity is the host of this fragment.
  */
 public class GameFragment extends Fragment {
-    private Expression easyExpression;
-    private MediumExpression mediumExpression;
-    private HardExpression hardExpression;
+
+    @Nullable
+    private Expression mEasyExpression;
+
+    @Nullable
+    private Expression mMediumExpression;
+
+    @Nullable
+    private Expression mHardExpression;
+
     private CountDownTimer timer;
     private int expressionAnswer, userAnswer;
     private long answerTime;
@@ -267,16 +273,16 @@ public class GameFragment extends Fragment {
 
         switch (difficulty) {
             case Difficulty.EASY:
-                easyExpression = ExpressionGenerator.getInstance().generate(Difficulty.EASY);
-                expressionAnswer = easyExpression.calculate();
+                mEasyExpression = ExpressionGenerator.getInstance().generate(Difficulty.EASY);
+                expressionAnswer = mEasyExpression.calculate();
                 break;
             case Difficulty.MEDIUM:
-                mediumExpression = new MediumExpression();
-                expressionAnswer = mediumExpression.getCalculationResult();
+                mMediumExpression = ExpressionGenerator.getInstance().generate(Difficulty.MEDIUM);
+                expressionAnswer = mMediumExpression.calculate();
                 break;
             case Difficulty.HARD:
-                hardExpression = new HardExpression();
-                expressionAnswer = hardExpression.getCalculationResult();
+                mHardExpression = ExpressionGenerator.getInstance().generate(Difficulty.HARD);
+                expressionAnswer = mHardExpression.calculate();
                 break;
         }
     }
@@ -292,21 +298,13 @@ public class GameFragment extends Fragment {
 
         switch (difficulty) {
             case Difficulty.EASY:
-                mExpressionTextView.setText(easyExpression.toString());
+                mExpressionTextView.setText(mEasyExpression.toString());
                 break;
             case Difficulty.MEDIUM:
-                mExpressionTextView.setText("" + mediumExpression.getFirstTerm() + " "
-                        + mediumExpression.getFirstOperator() + " "
-                        + mediumExpression.getSecondTerm() + " "
-                        + mediumExpression.getSecondOperator() + " "
-                        + mediumExpression.getThirdTerm());
+                mExpressionTextView.setText(mMediumExpression.toString());
                 break;
             case Difficulty.HARD:
-                mExpressionTextView.setText("" + hardExpression.getFirstTerm() + " "
-                        + hardExpression.getFirstOperator() + " "
-                        + hardExpression.getSecondTerm() + " " + hardExpression.getSecondOperator()
-                        + " " + hardExpression.getThirdTerm() + " "
-                        + hardExpression.getThirdOperator() + " " + hardExpression.getFourthTerm());
+                mExpressionTextView.setText(mHardExpression.toString());
                 break;
         }
     }

@@ -34,38 +34,41 @@ public class ExpressionGenerator {
         return sInstance;
     }
 
+    @NonNull
     public Expression generate(@Difficulty int difficulty) {
-        // TODO: Implement expression generation
         switch (difficulty) {
             case Difficulty.EASY:
-                // return new Adder(new Operand(generateOperand()), new Operand(generateOperand()));
-                return generateOperator(new Operand(generateOperand()), new Operand(generateOperand()));
+                return generateOperator(generateOperand(), generateOperand());
+            case Difficulty.MEDIUM:
+                return generateOperator(generateOperator(generateOperand(), generateOperand()), generateOperand());
+            case Difficulty.HARD:
+                return generateOperator(generateOperator(generateOperand(), generateOperand()), generateOperator(generateOperand(), generateOperand()));
             default:
                 throw new UnsupportedOperationException();
         }
     }
 
     //region Utility API
-    // TODO: Temp parameters
-    private BinaryExpression generateOperator(@NonNull Operand operand1, @NonNull Operand operand2) {
-        // TODO: Implement operator generation
+    @NonNull
+    private Expression generateOperator(@NonNull Expression left, @NonNull Expression right) {
         int operatorCode = new Random().nextInt(3) + 1;
         switch (operatorCode) {
             case Operator.ADDITION:
-                return new Adder(operand1, operand2);
+                return new Adder(left, right);
             case Operator.SUBTRACTION:
-                return new Subtractor(operand1, operand2);
+                return new Subtractor(left, right);
             case Operator.MULTIPLICATION:
-                return new Multiplier(operand1, operand2);
+                return new Multiplier(left, right);
             case Operator.DIVISION:
-                return new Divider(operand1, operand2);
+                return new Divider(left, right);
             default:
                 throw new UnsupportedOperationException();
         }
     }
 
-    private int generateOperand() {
-        return new Random().nextInt(10);
+    @NonNull
+    private Operand generateOperand() {
+        return new Operand(new Random().nextInt(10));
     }
     //endregion
 }
