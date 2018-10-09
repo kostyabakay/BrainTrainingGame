@@ -53,7 +53,7 @@ public class ExpressionGenerator {
     //region Utility API
     @NonNull
     private Expression generateOperator(@NonNull Expression left, @NonNull Expression right) {
-        int operatorCode = new Random().nextInt(3) + 1;
+        int operatorCode = new Random().nextInt(4) + 1;
         switch (operatorCode) {
             case Operator.ADDITION:
                 return new Adder(left, right);
@@ -62,7 +62,6 @@ public class ExpressionGenerator {
             case Operator.MULTIPLICATION:
                 return new Multiplier(left, right);
             case Operator.DIVISION:
-                // TODO: Check division generation
                 return new Divider(left, right);
             default:
                 throw new UnsupportedOperationException();
