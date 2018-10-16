@@ -17,7 +17,12 @@ public final class Const {
         private Symbol() {
         }
 
-        public static final String SPACE = " ";
+        public static final String PLUS = "+";
+        public static final String MINUS = "-";
+        public static final String MULTIPLICATION = "*";
         public static final String SLASH = "/";
+        public static final String SPACE = " ";
+        public static final String LEFT_BRACKET = "(";
+        public static final String RIGHT_BRACKET = ")";
     }
 }
