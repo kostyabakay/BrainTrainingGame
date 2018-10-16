@@ -3,6 +3,7 @@ package com.kostyabakay.braintraininggame.math.expression;
 import android.support.annotation.NonNull;
 
 import com.kostyabakay.braintraininggame.common.def.Difficulty;
+import com.kostyabakay.braintraininggame.common.logger.L;
 import com.kostyabakay.braintraininggame.math.operand.Operand;
 import com.kostyabakay.braintraininggame.math.operator.Adder;
 import com.kostyabakay.braintraininggame.math.operator.Divider;
@@ -68,7 +69,12 @@ public class ExpressionGenerator {
             case Operator.MULTIPLICATION:
                 return new Multiplier(left, right, priority);
             case Operator.DIVISION:
-                return new Divider(left, right, priority);
+                if (right.calculate() == 0) {
+                    L.i("Right expression is 0");
+                    return generateOperator(left, right);
+                } else {
+                    return new Divider(left, right, priority);
+                }
             default:
                 throw new IllegalArgumentException("Illegal Operator type");
         }
