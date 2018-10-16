@@ -22,7 +22,7 @@ public class Divider extends BinaryExpression {
     //region Expression
     @Override
     public int calculate() {
-        return mLeft.calculate() / mRight.calculate(); // FIXME: java.lang.ArithmeticException: divide by zero
+        return mLeft.calculate() / mRight.calculate();
     }
     //endregion
 
