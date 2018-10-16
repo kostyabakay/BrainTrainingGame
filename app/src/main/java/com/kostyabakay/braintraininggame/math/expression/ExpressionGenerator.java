@@ -1,6 +1,7 @@
 package com.kostyabakay.braintraininggame.math.expression;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.kostyabakay.braintraininggame.common.def.Difficulty;
 import com.kostyabakay.braintraininggame.math.operand.Operand;
@@ -8,6 +9,7 @@ import com.kostyabakay.braintraininggame.math.operator.Adder;
 import com.kostyabakay.braintraininggame.math.operator.Divider;
 import com.kostyabakay.braintraininggame.math.operator.Multiplier;
 import com.kostyabakay.braintraininggame.math.operator.Operator;
+import com.kostyabakay.braintraininggame.math.operator.Priority;
 import com.kostyabakay.braintraininggame.math.operator.Subtractor;
 
 import java.util.Random;
@@ -54,9 +56,23 @@ public class ExpressionGenerator {
     @NonNull
     private Expression generateOperator(@NonNull Expression left, @NonNull Expression right) {
         int operatorCode = new Random().nextInt(4) + 1;
+
+        Log.d("Expression", "expr left: " + left.toString());
+        Log.d("Expression", "expr right: " + right.toString());
+
+        if (left instanceof BinaryExpression) {
+            BinaryExpression e = (BinaryExpression) left;
+            Log.d("Expression", "priority left: " + e.getPriority());
+        }
+
+        if (right instanceof BinaryExpression) {
+            BinaryExpression e = (BinaryExpression) right;
+            Log.d("Expression", "priority right: " + e.getPriority());
+        }
+
         switch (operatorCode) {
             case Operator.ADDITION:
-                return new Adder(left, right);
+                return new Adder(left, right, Priority.HIGH);
             case Operator.SUBTRACTION:
                 return new Subtractor(left, right);
             case Operator.MULTIPLICATION:

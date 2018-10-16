@@ -14,4 +14,6 @@ public abstract class BinaryExpression extends UnaryExpression {
         super(right);
         mLeft = left;
     }
+
+    public abstract int getPriority();
 }

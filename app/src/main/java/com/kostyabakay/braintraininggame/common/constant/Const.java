@@ -22,5 +22,7 @@ public final class Const {
         public static final String MULTIPLICATION = "*";
         public static final String SLASH = "/";
         public static final String SPACE = " ";
+        public static final String LEFT_BRACKET = "(";
+        public static final String RIGHT_BRACKET = ")";
     }
 }

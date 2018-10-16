@@ -11,8 +11,16 @@ import com.kostyabakay.braintraininggame.math.expression.Expression;
  */
 public class Adder extends BinaryExpression {
 
-    public Adder(@NonNull Expression left, @NonNull Expression right) {
+    @Priority
+    private int mPriority;
+
+    public Adder(@NonNull Expression left, @NonNull Expression right, @Priority int priority) {
         super(left, right);
+        mPriority = priority;
+    }
+
+    public int getPriority() {
+        return mPriority;
     }
 
     //region Expression
@@ -25,7 +33,16 @@ public class Adder extends BinaryExpression {
     //region Object
     @Override
     public String toString() {
-        return mLeft + Const.Symbol.SPACE + Const.Symbol.PLUS + Const.Symbol.SPACE + mRight;
+        switch (mPriority) {
+            case Priority.LOW:
+                return mLeft + Const.Symbol.SPACE + Const.Symbol.PLUS + Const.Symbol.SPACE + mRight;
+            case Priority.HIGH:
+                return Const.Symbol.LEFT_BRACKET + mLeft
+                        + Const.Symbol.SPACE + Const.Symbol.PLUS
+                        + Const.Symbol.SPACE + mRight + Const.Symbol.RIGHT_BRACKET;
+            default:
+                throw new IllegalArgumentException("Wrong Priority type");
+        }
     }
     //endregion
 }

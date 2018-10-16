@@ -15,6 +15,11 @@ public class Multiplier extends BinaryExpression {
         super(left, right);
     }
 
+    @Override
+    public int getPriority() {
+        return 0;
+    }
+
     //region Expression
     @Override
     public int calculate() {

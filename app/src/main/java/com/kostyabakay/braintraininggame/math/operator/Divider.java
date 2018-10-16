@@ -15,10 +15,15 @@ public class Divider extends BinaryExpression {
         super(left, right);
     }
 
+    @Override
+    public int getPriority() {
+        return 0;
+    }
+
     //region Expression
     @Override
     public int calculate() {
-        return mLeft.calculate() / mRight.calculate();
+        return mLeft.calculate() / mRight.calculate(); // FIXME: java.lang.ArithmeticException: divide by zero
     }
     //endregion
 
