@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -280,14 +279,10 @@ public class GameFragment extends Fragment {
             case Difficulty.MEDIUM:
                 mMediumExpression = ExpressionGenerator.getInstance().generate(Difficulty.MEDIUM);
                 expressionAnswer = mMediumExpression.calculate();
-                Log.d("Expression", "expression: " + mMediumExpression);
-                Log.d("Expression", "expression answer: " + expressionAnswer);
                 break;
             case Difficulty.HARD:
                 mHardExpression = ExpressionGenerator.getInstance().generate(Difficulty.HARD);
                 expressionAnswer = mHardExpression.calculate();
-                Log.d("Expression", "expression: " + mHardExpression);
-                Log.d("Expression", "expression answer: " + expressionAnswer);
                 break;
         }
     }

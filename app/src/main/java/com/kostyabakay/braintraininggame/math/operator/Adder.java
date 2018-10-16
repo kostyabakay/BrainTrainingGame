@@ -19,14 +19,17 @@ public class Adder extends BinaryExpression {
         mPriority = priority;
     }
 
-    public int getPriority() {
-        return mPriority;
-    }
-
     //region Expression
     @Override
     public int calculate() {
         return mLeft.calculate() + mRight.calculate();
+    }
+    //endregion
+
+    //region BinaryExpression
+    @Override
+    public int getPriority() {
+        return mPriority;
     }
     //endregion
 
@@ -41,7 +44,7 @@ public class Adder extends BinaryExpression {
                         + Const.Symbol.SPACE + Const.Symbol.PLUS
                         + Const.Symbol.SPACE + mRight + Const.Symbol.RIGHT_BRACKET;
             default:
-                throw new IllegalArgumentException("Wrong Priority type");
+                throw new IllegalArgumentException("Illegal Priority type");
         }
     }
     //endregion

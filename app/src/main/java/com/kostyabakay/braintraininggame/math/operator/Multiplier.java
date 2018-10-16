@@ -11,13 +11,12 @@ import com.kostyabakay.braintraininggame.math.expression.Expression;
  */
 public class Multiplier extends BinaryExpression {
 
-    public Multiplier(@NonNull Expression left, @NonNull Expression right) {
-        super(left, right);
-    }
+    @Priority
+    private int mPriority;
 
-    @Override
-    public int getPriority() {
-        return 0;
+    public Multiplier(@NonNull Expression left, @NonNull Expression right, @Priority int priority) {
+        super(left, right);
+        mPriority = priority;
     }
 
     //region Expression
@@ -27,10 +26,26 @@ public class Multiplier extends BinaryExpression {
     }
     //endregion
 
+    //region BinaryExpression
+    @Override
+    public int getPriority() {
+        return mPriority;
+    }
+    //endregion
+
     //region Object
     @Override
     public String toString() {
-        return mLeft + Const.Symbol.SPACE + Const.Symbol.MULTIPLICATION + Const.Symbol.SPACE + mRight;
+        switch (mPriority) {
+            case Priority.LOW:
+                return mLeft + Const.Symbol.SPACE + Const.Symbol.MULTIPLICATION + Const.Symbol.SPACE + mRight;
+            case Priority.HIGH:
+                return Const.Symbol.LEFT_BRACKET + mLeft
+                        + Const.Symbol.SPACE + Const.Symbol.MULTIPLICATION
+                        + Const.Symbol.SPACE + mRight + Const.Symbol.RIGHT_BRACKET;
+            default:
+                throw new IllegalArgumentException("Illegal Priority type");
+        }
     }
     //endregion
 }

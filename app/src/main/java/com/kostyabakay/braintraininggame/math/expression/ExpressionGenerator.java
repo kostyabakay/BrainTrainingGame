@@ -1,7 +1,6 @@
 package com.kostyabakay.braintraininggame.math.expression;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.kostyabakay.braintraininggame.common.def.Difficulty;
 import com.kostyabakay.braintraininggame.math.operand.Operand;
@@ -42,13 +41,11 @@ public class ExpressionGenerator {
             case Difficulty.EASY:
                 return generateOperator(generateOperand(), generateOperand());
             case Difficulty.MEDIUM:
-                // TODO: Fix operation priority
                 return generateOperator(generateOperator(generateOperand(), generateOperand()), generateOperand());
             case Difficulty.HARD:
-                // TODO: Fix operation priority
                 return generateOperator(generateOperator(generateOperand(), generateOperand()), generateOperator(generateOperand(), generateOperand()));
             default:
-                throw new UnsupportedOperationException();
+                throw new IllegalArgumentException("Illegal Difficulty type");
         }
     }
 
@@ -56,31 +53,24 @@ public class ExpressionGenerator {
     @NonNull
     private Expression generateOperator(@NonNull Expression left, @NonNull Expression right) {
         int operatorCode = new Random().nextInt(4) + 1;
-
-        Log.d("Expression", "expr left: " + left.toString());
-        Log.d("Expression", "expr right: " + right.toString());
-
-        if (left instanceof BinaryExpression) {
-            BinaryExpression e = (BinaryExpression) left;
-            Log.d("Expression", "priority left: " + e.getPriority());
-        }
-
-        if (right instanceof BinaryExpression) {
-            BinaryExpression e = (BinaryExpression) right;
-            Log.d("Expression", "priority right: " + e.getPriority());
+        int priority;
+        if (left instanceof Operand && right instanceof Operand) {
+            priority = Priority.HIGH;
+        } else {
+            priority = Priority.LOW;
         }
 
         switch (operatorCode) {
             case Operator.ADDITION:
-                return new Adder(left, right, Priority.HIGH);
+                return new Adder(left, right, priority);
             case Operator.SUBTRACTION:
-                return new Subtractor(left, right);
+                return new Subtractor(left, right, priority);
             case Operator.MULTIPLICATION:
-                return new Multiplier(left, right);
+                return new Multiplier(left, right, priority);
             case Operator.DIVISION:
-                return new Divider(left, right);
+                return new Divider(left, right, priority);
             default:
-                throw new UnsupportedOperationException();
+                throw new IllegalArgumentException("Illegal Operator type");
         }
     }
 
