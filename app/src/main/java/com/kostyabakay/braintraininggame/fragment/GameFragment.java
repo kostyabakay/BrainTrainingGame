@@ -39,15 +39,15 @@ public class GameFragment extends Fragment {
     @Nullable
     private Expression mHardExpression;
 
-    private CountDownTimer timer;
-    private int expressionAnswer, userAnswer;
-    private long answerTime;
-    private boolean isNumberNegative = false;
-    private boolean isAnswerEmpty = true;
-    private boolean isGameFinished = false;
-    private int gamesCount;
-    private int correctAnswers;
-    private long score;
+    private CountDownTimer mTimer;
+    private int mExpressionAnswer, mUserAnswer;
+    private long mAnswerTime;
+    private boolean mIsNumberNegative = false;
+    private boolean mIsAnswerEmpty = true;
+    private boolean mIsGameFinished = false;
+    private int mGamesCount;
+    private int mCorrectAnswers;
+    private long mScore;
 
     //region ButterKnife BindView
     @BindView(R.id.evaluation_text_view)
@@ -153,21 +153,21 @@ public class GameFragment extends Fragment {
     void onDeleteButtonClick() {
         mEvaluationTextView.setText("");
         mAnswerTextView.setText("0");
-        userAnswer = 0;
-        isAnswerEmpty = true;
-        isNumberNegative = false;
+        mUserAnswer = 0;
+        mIsAnswerEmpty = true;
+        mIsNumberNegative = false;
     }
 
     @OnClick(R.id.button_sign)
     void onSignButtonClick() {
         mEvaluationTextView.setText("");
 
-        if (!isNumberNegative) {
-            isNumberNegative = true;
-            if (userAnswer != 0) {
-                userAnswer = Integer.parseInt(mAnswerTextView.getText().toString());
-                userAnswer = changeSign(userAnswer);
-                String numberStr = Integer.toString(userAnswer);
+        if (!mIsNumberNegative) {
+            mIsNumberNegative = true;
+            if (mUserAnswer != 0) {
+                mUserAnswer = Integer.parseInt(mAnswerTextView.getText().toString());
+                mUserAnswer = changeSign(mUserAnswer);
+                String numberStr = Integer.toString(mUserAnswer);
                 mAnswerTextView.setText(numberStr);
             } else {
                 if (!mAnswerTextView.getText().toString().contains("-")) {
@@ -175,11 +175,11 @@ public class GameFragment extends Fragment {
                 }
             }
         } else {
-            isNumberNegative = false;
-            if (userAnswer != 0) {
-                userAnswer = Integer.parseInt(mAnswerTextView.getText().toString());
-                userAnswer = changeSign(userAnswer);
-                String numberStr = Integer.toString(userAnswer);
+            mIsNumberNegative = false;
+            if (mUserAnswer != 0) {
+                mUserAnswer = Integer.parseInt(mAnswerTextView.getText().toString());
+                mUserAnswer = changeSign(mUserAnswer);
+                String numberStr = Integer.toString(mUserAnswer);
                 mAnswerTextView.setText(numberStr);
             } else {
                 mAnswerTextView.setText("");
@@ -189,14 +189,14 @@ public class GameFragment extends Fragment {
 
     @OnClick(R.id.button_check)
     void onCheckButtonClick() {
-        if (isGameFinished) {
+        if (mIsGameFinished) {
             showScore();
         } else {
             if (mCheckButton.getText().equals(getString(R.string.game_button_next))) {
                 mCheckButton.setText(R.string.game_button_check);
                 mEvaluationTextView.setText("");
             } else {
-                checkAnswer(userAnswer);
+                checkAnswer(mUserAnswer);
             }
 
             nextExpression();
@@ -208,9 +208,9 @@ public class GameFragment extends Fragment {
      * Starts game.
      */
     private void startGame() {
-        gamesCount = 0;
-        correctAnswers = 0;
-        score = 0;
+        mGamesCount = 0;
+        mCorrectAnswers = 0;
+        mScore = 0;
         nextExpression();
     }
 
@@ -218,10 +218,10 @@ public class GameFragment extends Fragment {
      * Shows next expression to the user.
      */
     private void nextExpression() {
-        if (!isGameFinished) {
+        if (!mIsGameFinished) {
             checkGamesCount();
             clearData();
-            if (!isGameFinished) {
+            if (!mIsGameFinished) {
                 createExpression();
                 startTimer();
                 showExpression();
@@ -235,10 +235,10 @@ public class GameFragment extends Fragment {
      * Checks count of the game in one session.
      */
     private void checkGamesCount() {
-        if (gamesCount < 10) {
-            gamesCount++;
+        if (mGamesCount < 10) {
+            mGamesCount++;
         } else {
-            isGameFinished = true;
+            mIsGameFinished = true;
         }
     }
 
@@ -247,10 +247,10 @@ public class GameFragment extends Fragment {
      */
     private void clearData() {
         mExpressionTextView.setText("");
-        userAnswer = 0;
-        mAnswerTextView.setText(Integer.toString(userAnswer));
-        answerTime = 0;
-        isAnswerEmpty = true;
+        mUserAnswer = 0;
+        mAnswerTextView.setText(Integer.toString(mUserAnswer));
+        mAnswerTime = 0;
+        mIsAnswerEmpty = true;
     }
 
     /**
@@ -274,15 +274,15 @@ public class GameFragment extends Fragment {
         switch (difficulty) {
             case Difficulty.EASY:
                 mEasyExpression = ExpressionGenerator.getInstance().generate(Difficulty.EASY);
-                expressionAnswer = mEasyExpression.calculate();
+                mExpressionAnswer = mEasyExpression.calculate();
                 break;
             case Difficulty.MEDIUM:
                 mMediumExpression = ExpressionGenerator.getInstance().generate(Difficulty.MEDIUM);
-                expressionAnswer = mMediumExpression.calculate();
+                mExpressionAnswer = mMediumExpression.calculate();
                 break;
             case Difficulty.HARD:
                 mHardExpression = ExpressionGenerator.getInstance().generate(Difficulty.HARD);
-                expressionAnswer = mHardExpression.calculate();
+                mExpressionAnswer = mHardExpression.calculate();
                 break;
         }
     }
@@ -324,32 +324,32 @@ public class GameFragment extends Fragment {
      */
     private void showUserAnswer(@Digit int digit) {
         mEvaluationTextView.setText("");
-        if (isAnswerEmpty) {
+        if (mIsAnswerEmpty) {
             mAnswerTextView.setText("");
-            userAnswer = digit;
-            if (isNumberNegative) {
+            mUserAnswer = digit;
+            if (mIsNumberNegative) {
                 if (!mAnswerTextView.getText().toString().contains("-")) {
                     mAnswerTextView.setText("-" + Integer.toString(digit));
                 } else {
                     mAnswerTextView.setText(Integer.toString(digit));
                 }
-                if (userAnswer > 0) userAnswer = userAnswer * (-1);
+                if (mUserAnswer > 0) mUserAnswer = mUserAnswer * (-1);
             } else {
                 mAnswerTextView.setText(Integer.toString(digit));
             }
-            isAnswerEmpty = false;
+            mIsAnswerEmpty = false;
         } else {
-            String userAnswerStr = Integer.toString(userAnswer);
+            String userAnswerStr = Integer.toString(mUserAnswer);
             String userClickStr = Integer.toString(digit);
             userAnswerStr = userAnswerStr + userClickStr;
-            userAnswer = Integer.parseInt(userAnswerStr); // FIXME: java.lang.NumberFormatException: For input string: "4563210000"
-            if (isNumberNegative) {
+            mUserAnswer = Integer.parseInt(userAnswerStr); // FIXME: java.lang.NumberFormatException: For input string: "4563210000"
+            if (mIsNumberNegative) {
                 if (!mAnswerTextView.getText().toString().contains("-")) {
                     mAnswerTextView.setText("-" + userAnswerStr);
                 } else {
                     mAnswerTextView.setText(userAnswerStr);
                 }
-                if (userAnswer > 0) userAnswer = userAnswer * (-1);
+                if (mUserAnswer > 0) mUserAnswer = mUserAnswer * (-1);
             } else {
                 mAnswerTextView.setText(userAnswerStr);
             }
@@ -357,19 +357,19 @@ public class GameFragment extends Fragment {
     }
 
     /**
-     * Starts timer per question.
+     * Starts mTimer per question.
      */
     private void startTimer() {
-        timer = new CountDownTimer(11000, 1000) {
+        mTimer = new CountDownTimer(11000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                answerTime = millisUntilFinished / 1000;
-                mTimerTextView.setText(Long.toString(answerTime));
+                mAnswerTime = millisUntilFinished / 1000;
+                mTimerTextView.setText(Long.toString(mAnswerTime));
             }
 
             public void onFinish() {
                 mTimerTextView.setText("0");
-                checkAnswer(userAnswer);
+                checkAnswer(mUserAnswer);
                 mCheckButton.setText(R.string.game_button_next);
             }
         }.start();
@@ -391,12 +391,12 @@ public class GameFragment extends Fragment {
      * @param answer
      */
     private void checkAnswer(int answer) {
-        timer.cancel();
-        if (expressionAnswer == answer) {
+        mTimer.cancel();
+        if (mExpressionAnswer == answer) {
             mEvaluationTextView.setText(R.string.correct_answer);
             mEvaluationTextView.setTextColor(Color.GREEN);
             if (!mCheckButton.getText().equals(getString(R.string.score))) {
-                correctAnswers++;
+                mCorrectAnswers++;
                 calculateScore();
             }
         } else {
@@ -404,28 +404,28 @@ public class GameFragment extends Fragment {
             mEvaluationTextView.setTextColor(Color.RED);
         }
 
-        isNumberNegative = false;
+        mIsNumberNegative = false;
     }
 
     /**
      * Calculates score of every answer and adds them.
      */
     private void calculateScore() {
-        if (answerTime == 10) {
-            score = score + 100;
-        } else if (answerTime > 0 && answerTime < 10) {
-            long k = 100 / (10 - answerTime);
-            score = score + k;
+        if (mAnswerTime == 10) {
+            mScore = mScore + 100;
+        } else if (mAnswerTime > 0 && mAnswerTime < 10) {
+            long k = 100 / (10 - mAnswerTime);
+            mScore = mScore + k;
         }
     }
 
     /**
      * If game session was finished this method will replace new fragment with score of the game.
      */
-    // TODO: Add Activity interaction
+    // TODO: Add Activity interaction or implement it with ViewModel from Architecture Components
     private void showScore() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance(gamesCount, correctAnswers, score));
+        fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance(mGamesCount, mCorrectAnswers, mScore));
         fragmentTransaction.commit();
     }
 }
