@@ -190,7 +190,7 @@ public class GameFragment extends Fragment {
     @OnClick(R.id.button_check)
     void onCheckButtonClick() {
         if (isGameFinished) {
-            showGameScoreFragment();
+            showScore();
         } else {
             if (mCheckButton.getText().equals(getString(R.string.game_button_next))) {
                 mCheckButton.setText(R.string.game_button_check);
@@ -423,7 +423,7 @@ public class GameFragment extends Fragment {
      * If game session was finished this method will replace new fragment with score of the game.
      */
     // TODO: Add Activity interaction
-    private void showGameScoreFragment() {
+    private void showScore() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_game, ScoreFragment.newInstance(gamesCount, correctAnswers, score));
         fragmentTransaction.commit();

@@ -56,7 +56,7 @@ public class ScoreFragment extends Fragment {
         if (args != null) {
             int gamesCount = args.getInt(Const.BundleKey.GAMES_COUNT);
             int correctAnswers = args.getInt(Const.BundleKey.CORRECT_ANSWERS);
-            int score = args.getInt(Const.BundleKey.SCORE);
+            long score = args.getLong(Const.BundleKey.SCORE);
             mCorrectAnswersTextView.setText(formatCorrectAnswers(correctAnswers, gamesCount));
             mScoreTextView.setText(String.valueOf(score));
         } else {
