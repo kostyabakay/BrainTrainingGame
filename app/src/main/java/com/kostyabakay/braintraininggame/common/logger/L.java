@@ -1,12 +1,13 @@
 package com.kostyabakay.braintraininggame.common.logger;
 
-import android.arch.core.BuildConfig;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 public class L {
 
-    private static final Boolean DEBUG = BuildConfig.DEBUG;
+    // FIXME: android.arch.core.BuildConfig not found
+    // private static final Boolean DEBUG = BuildConfig.DEBUG;
+    private static final Boolean DEBUG = true;
 
     /**
      * Prints info message.
