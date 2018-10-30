@@ -1,69 +1,47 @@
 package com.kostyabakay.braintraininggame.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
 import com.kostyabakay.braintraininggame.R;
 
-/**
- * Created by Kostya on 04.03.2016.
- * This class represents Activity for game menu. This is the main Activity of application.
- */
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+public class MenuActivity extends BaseActivity {
+
+    //region BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        initView();
+        ButterKnife.bind(this);
+    }
+    //endregion
+
+    //region ButterKnife
+    @OnClick(R.id.menu_play_button)
+    void onPlayButtonClick() {
+        GameActivity.start(this);
     }
 
-    /**
-     * Initialization view elements on the screen.
-     */
-    private void initView() {
-        Button newGameBtn = (Button) findViewById(R.id.menu_play_button);
-        Button rulesBtn = (Button) findViewById(R.id.menu_rules_button);
-        Button authorBtn = (Button) findViewById(R.id.menu_author_button);
-        Button settingsBtn = (Button) findViewById(R.id.menu_settings_button);
-        Button exitBtn = (Button) findViewById(R.id.menu_exit_button);
-
-        newGameBtn.setOnClickListener(this);
-        rulesBtn.setOnClickListener(this);
-        authorBtn.setOnClickListener(this);
-        settingsBtn.setOnClickListener(this);
-        exitBtn.setOnClickListener(this);
+    @OnClick(R.id.menu_rules_button)
+    void onRulesButtonClick() {
+        RulesActivity.start(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.menu_play_button:
-                Intent playIntent = new Intent(MenuActivity.this, GameActivity.class);
-                startActivity(playIntent);
-                break;
-
-            case R.id.menu_rules_button:
-                Intent rulesIntent = new Intent(MenuActivity.this, RulesActivity.class);
-                startActivity(rulesIntent);
-                break;
-
-            case R.id.menu_author_button:
-                Intent authorIntent = new Intent(MenuActivity.this, AuthorActivity.class);
-                startActivity(authorIntent);
-                break;
-
-            case R.id.menu_settings_button:
-                Intent settingsIntent = new Intent(MenuActivity.this, SettingsActivity.class);
-                startActivity(settingsIntent);
-                break;
-
-            case R.id.menu_exit_button:
-                finish(); // Exit from the app
-                break;
-        }
+    @OnClick(R.id.menu_author_button)
+    void onAuthorButtonClick() {
+        AuthorActivity.start(this);
     }
+
+    @OnClick(R.id.menu_settings_button)
+    void onSettingsButtonClick() {
+        SettingsActivity.start(this);
+    }
+
+    @OnClick(R.id.menu_exit_button)
+    void onExitButtonClick() {
+        finish();
+    }
+    //endregion
 }
