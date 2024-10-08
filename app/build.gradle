@@ -1,24 +1,24 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
-
+    compileSdkVersion 34
+    buildToolsVersion '34.0.0'
+    namespace 'com.kostyabakay.braintraininggame'
     defaultConfig {
         applicationId "com.kostyabakay.braintraininggame"
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 6
-        versionName "1.1"
+        targetSdkVersion 34
+        versionCode 7
+        versionName "1.1.1"
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    viewBinding {
+        enabled = true
     }
 }
 
@@ -28,11 +28,4 @@ dependencies {
     implementation ('com.android.support:appcompat-v7:28.0.0') {
         exclude group: 'com.android.support', module: 'support-media-compat'
     }
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-perf:16.2.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
-
-apply plugin: 'com.google.gms.google-services'

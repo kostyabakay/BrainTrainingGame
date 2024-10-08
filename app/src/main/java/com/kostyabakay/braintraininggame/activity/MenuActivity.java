@@ -2,46 +2,27 @@ package com.kostyabakay.braintraininggame.activity;
 
 import android.os.Bundle;
 
-import com.kostyabakay.braintraininggame.R;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.kostyabakay.braintraininggame.databinding.ActivityMenuBinding;
 
 public class MenuActivity extends BaseActivity {
+
+    private ActivityMenuBinding binding;
 
     //region BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-        ButterKnife.bind(this);
+        binding = ActivityMenuBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setupClickListeners();
     }
     //endregion
 
-    //region ButterKnife
-    @OnClick(R.id.menu_play_button)
-    void onPlayButtonClick() {
-        GameActivity.start(this);
+    private void setupClickListeners() {
+        binding.menuPlayButton.setOnClickListener(v -> GameActivity.start(this));
+        binding.menuRulesButton.setOnClickListener(v -> RulesActivity.start(this));
+        binding.menuAuthorButton.setOnClickListener(v -> AuthorActivity.start(this));
+        binding.menuSettingsButton.setOnClickListener(v -> SettingsActivity.start(this));
+        binding.menuExitButton.setOnClickListener(v -> finish());
     }
-
-    @OnClick(R.id.menu_rules_button)
-    void onRulesButtonClick() {
-        RulesActivity.start(this);
-    }
-
-    @OnClick(R.id.menu_author_button)
-    void onAuthorButtonClick() {
-        AuthorActivity.start(this);
-    }
-
-    @OnClick(R.id.menu_settings_button)
-    void onSettingsButtonClick() {
-        SettingsActivity.start(this);
-    }
-
-    @OnClick(R.id.menu_exit_button)
-    void onExitButtonClick() {
-        finish();
-    }
-    //endregion
 }

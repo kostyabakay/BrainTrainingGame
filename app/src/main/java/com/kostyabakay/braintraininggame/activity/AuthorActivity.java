@@ -6,13 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.kostyabakay.braintraininggame.R;
 import com.kostyabakay.braintraininggame.common.constant.SocialUrl;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.kostyabakay.braintraininggame.databinding.ActivityAuthorBinding;
 
 public class AuthorActivity extends BaseActivity {
+
+    private ActivityAuthorBinding binding;
 
     public static void start(@NonNull Context context) {
         Intent starter = new Intent(context, AuthorActivity.class);
@@ -23,30 +22,16 @@ public class AuthorActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_author);
-        ButterKnife.bind(this);
+        binding = ActivityAuthorBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setupClickListeners();
     }
     //endregion
 
-    //region ButterKnife
-    @OnClick(R.id.twitter_image)
-    void onTwitterClick() {
-        openWebPage(Uri.parse(SocialUrl.TWITTER));
+    private void setupClickListeners() {
+        binding.twitterImage.setOnClickListener(view -> openWebPage(Uri.parse(SocialUrl.TWITTER)));
+        binding.instagramImage.setOnClickListener(view -> openWebPage(Uri.parse(SocialUrl.INSTAGRAM)));
+        binding.githubImage.setOnClickListener(view -> openWebPage(Uri.parse(SocialUrl.GITHUB)));
+        binding.linkedinImage.setOnClickListener(view -> openWebPage(Uri.parse(SocialUrl.LINKED_IN)));
     }
-
-    @OnClick(R.id.instagram_image)
-    void onInstagramClick() {
-        openWebPage(Uri.parse(SocialUrl.INSTAGRAM));
-    }
-
-    @OnClick(R.id.github_image)
-    void onGitHubClick() {
-        openWebPage(Uri.parse(SocialUrl.GITHUB));
-    }
-
-    @OnClick(R.id.linkedin_image)
-    void onLinkedInClick() {
-        openWebPage(Uri.parse(SocialUrl.LINKED_IN));
-    }
-    //endregion
 }

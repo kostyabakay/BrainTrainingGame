@@ -7,24 +7,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.kostyabakay.braintraininggame.R;
 import com.kostyabakay.braintraininggame.common.constant.Const;
 import com.kostyabakay.braintraininggame.common.logger.L;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.kostyabakay.braintraininggame.databinding.FragmentScoreBinding;
 
 public class ScoreFragment extends Fragment {
 
-    //region ButterKnife BindView
-    @BindView(R.id.correct_answers_text_view)
-    TextView mCorrectAnswersTextView;
-
-    @BindView(R.id.score_text_view)
-    TextView mScoreTextView;
-    //endregion
+    private FragmentScoreBinding binding;
 
     public static ScoreFragment newInstance(int gamesCount, int correctAnswers, long score) {
         Bundle args = new Bundle();
@@ -39,9 +28,8 @@ public class ScoreFragment extends Fragment {
     //region Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_score, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        binding = FragmentScoreBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -57,8 +45,8 @@ public class ScoreFragment extends Fragment {
             int gamesCount = args.getInt(Const.BundleKey.GAMES_COUNT);
             int correctAnswers = args.getInt(Const.BundleKey.CORRECT_ANSWERS);
             long score = args.getLong(Const.BundleKey.SCORE);
-            mCorrectAnswersTextView.setText(formatCorrectAnswers(correctAnswers, gamesCount));
-            mScoreTextView.setText(String.valueOf(score));
+            binding.correctAnswersTextView.setText(formatCorrectAnswers(correctAnswers, gamesCount));
+            binding.scoreTextView.setText(String.valueOf(score));
         } else {
             L.i("Bundle is null");
         }
@@ -66,11 +54,7 @@ public class ScoreFragment extends Fragment {
 
     @NonNull
     private String formatCorrectAnswers(int correctAnswers, int gamesCount) {
-        return String.valueOf(correctAnswers)
-                + Const.Symbol.SPACE
-                + Const.Symbol.SLASH
-                + Const.Symbol.SPACE
-                + (String.valueOf(gamesCount));
+        return String.valueOf(correctAnswers) + Const.Symbol.SPACE + Const.Symbol.SLASH + Const.Symbol.SPACE + (String.valueOf(gamesCount));
     }
     //endregion
 }
